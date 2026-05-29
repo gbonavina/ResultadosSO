@@ -4,6 +4,7 @@
 \usepackage{graphicx,url}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{float}
 % \usepackage[latin1]{inputenc}  
 
      
@@ -57,6 +58,26 @@ Jonas L. Durão\inst{1}, Natália V. A. do Val\inst{1}, Vinicius A. L. Andrade\i
 \subsection{Algoritmo Padrão do MINIX}
 
 \subsection{Round-Robin}
+O algoritmo de escalonamento por chaveamento circular (ou \textit{Round-Robin}), é um dos algoritmos 
+mais simples e antigos devido à sua fácil implementação. Seu funcionamento gira em torno da definição
+de uma fatia de tempo de CPU (\textit{quantum}), em que o processo que está na CPU terá um tempo limitado
+de uso e, ao final deste tempo, haverá preempção e um novo processo será escolhido para ser executado \cite{tanembaum}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{round-robin.png}
+  \caption{Diagrama de funcionamento do \textit{Round-Robin} \cite{slides_joahannnes}}
+  \label{fig:rr}
+\end{figure}
+
+Para implementá-lo, é necessária a utilização de uma fila circular de processos prontos. Para nossa implementação,
+substituimos as múltiplas filas do algoritmo padrão do MINIX por uma fila única de processos de usuário (\texttt{USER\_Q} 7),
+além disso, disabilitamos os algoritmos de demoção, promoções periódicas de prioridade e rebalanceamento de filas.
+Por fim, modificamos o \textit{quantum} para que ele seja variável, com a seguinte lógica: cada processo terá uma fatia de CPU
+inversamente proporcional ao número de processos de usuário prontos. Em sua fila circular, quando o \textit{quantum} do processo em execução acabar, ele deverá ser encaminhado para o final da fila.
+Do mesmo modo, quando ele for bloqueado por entrada e saída, quando seu estado for atualizado para pronto, ele deverá retornar ao final da fila, como pode ser visto na Figura \ref{fig:rr}.
+
+
 \subsection{Múltiplas Filas}
 \subsection{Algoritmo a ser escolhido}
 
