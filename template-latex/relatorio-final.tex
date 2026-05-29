@@ -82,8 +82,21 @@ pode ser encontrado na Figura \ref{fig:banner2}
 \end{figure}
 
 
-
 \section{Mudança \texttt{exec.c}}
+
+Para que possamos imprimir o nome de cada arquivo que é executado pelo SO, foi necessário modificar o arquivo
+em \texttt{minix/minix/servers/vfs/exec.c}. Para fazer essa adaptação, foi identificada a variável \texttt{finalexec}, que representa 
+um \textit{buffer} com o caminho completo do executável. Dessa forma, foi acrescentado um \textit{printf} desse \textit{buffer}, da forma \texttt{Executando: <caminho/comando>}.
+O resultado dessa modificação pode ser encontrado na Figura \ref{fig:exec_ls}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{imgs/execls.jpeg}
+  \caption{Resultado da modificação do \texttt{exec.c}}
+  \label{fig:exec_ls}
+\end{figure}
+
+
 
 \section{Descrição do Exercício Proposto}
 

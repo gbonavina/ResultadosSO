@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex relatorio-final"] 1780085302.16268 "relatorio-final.aux" "relatorio-final.bbl" "relatorio-final" 1780085309.17661 0
+["bibtex relatorio-final"] 1780086273.38534 "relatorio-final.aux" "relatorio-final.bbl" "relatorio-final" 1780086274.70936 0
   "./sbc-template.bib" 1780082288.05616 492 181ba8d70906cdb254c4561b303940f5 ""
   "./sbc.bst" 1779838766.64842 21864 a668496cca21cfdd211f7fb5f0d57565 ""
-  "relatorio-final.aux" 1780085308.89797 2461 f1bdd8d8e610139e223ab12c041e1062 "pdflatex"
+  "relatorio-final.aux" 1780086274.50697 2674 29828c1ce72a7e8e3673fe6c3f09cbf1 "pdflatex"
   (generated)
   "relatorio-final.bbl"
   "relatorio-final.blg"
   (rewritten before read)
-["pdflatex"] 1780085307.16731 "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" "relatorio-final.pdf" "relatorio-final" 1780085309.17677 0
+["pdflatex"] 1780086273.46778 "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" "relatorio-final.pdf" "relatorio-final" 1780086274.70947 0
   "/etc/texmf/web2c/texmf.cnf" 1764035432.63935 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" 1780085306.96497 4956 798376ca65af6875561557593110947a ""
+  "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" 1780086272.01418 5651 bc6f608035da6e8a9fde34abcab8ed8f ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -91,10 +91,11 @@
   "imgs/banner1.jpeg" 1780084186.34098 120217 dc89ce28861bc968558586600e71f02e ""
   "imgs/banner2.jpeg" 1780084232.29443 111983 c0ba53996877f0f30548caaafc574bd8 ""
   "imgs/banner3.jpeg" 1780084224.73298 129004 7ba8649aff9a3b70190bfd0975d3ce33 ""
+  "imgs/execls.jpeg" 1780086216.49808 72256 3b263220d3136da9585b5d96c368ca43 ""
   "imgs/round-robin.png" 1780081348.15471 462460 962b2cd9f64fd231b82be6810b8674cc ""
-  "relatorio-final.aux" 1780085308.89797 2461 f1bdd8d8e610139e223ab12c041e1062 "pdflatex"
-  "relatorio-final.bbl" 1780085302.28397 406 8419b5874477046bb15b716c7ff8667c "bibtex relatorio-final"
-  "relatorio-final.tex" 1780085306.96497 4956 798376ca65af6875561557593110947a ""
+  "relatorio-final.aux" 1780086274.50697 2674 29828c1ce72a7e8e3673fe6c3f09cbf1 "pdflatex"
+  "relatorio-final.bbl" 1780086273.46511 406 8419b5874477046bb15b716c7ff8667c "bibtex relatorio-final"
+  "relatorio-final.tex" 1780086272.01418 5651 bc6f608035da6e8a9fde34abcab8ed8f ""
   "sbc-template.sty" 1779838766.64809 6074 ecc54df5124d8db4ac67c42cc728f3a5 ""
   (generated)
   "relatorio-final.aux"
