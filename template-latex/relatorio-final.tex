@@ -49,6 +49,40 @@ Jonas L. Durão\inst{1}, Natália V. A. do Val\inst{1}, Vinicius A. L. Andrade\i
 
 \section{Mudança nos Banners}
 
+Para a mudança no banner durante \textit{boot} e \textit{poweroff}, foi necessário navegar no diretório \texttt{minix/minix/kernel/main.c}. 
+Na função \texttt{announce()}, foram acrescentados \textit{prints} para reproduzir o banner indicado no enunciado. Além disso, na função
+\texttt{prepare\_shutdown()}, também inserimos \textit{prints} para a impressão do banner.
+Os resultados podem ser encontrados nas Figuras \ref{fig:banner1} e \ref{fig:banner3}.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/banner1.jpeg}
+    \caption{Resultado do banner de \textit{boot}.}
+    \label{fig:banner1}
+  \end{minipage}\hfill
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/banner3.jpeg}
+    \caption{Resultado do banner de \textit{poweroff}.}
+    \label{fig:banner3}
+  \end{minipage}
+\end{figure}
+
+Por fim, para a modificação do banner de \textit{login}, foi necessário navegar pelos diretórios
+\texttt{minix/etc/motd}, onde inserimos o banner indicado pelo enunciado. O resultado da modificação
+pode ser encontrado na Figura \ref{fig:banner2}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{imgs/banner2.jpeg}
+  \caption{Resultado do banner de \textit{login}.}
+  \label{fig:banner2}
+\end{figure}
+
+
+
 \section{Mudança \texttt{exec.c}}
 
 \section{Descrição do Exercício Proposto}
@@ -65,7 +99,7 @@ de uso e, ao final deste tempo, haverá preempção e um novo processo será esc
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\linewidth]{round-robin.png}
+  \includegraphics[width=0.5\linewidth]{imgs/round-robin.png}
   \caption{Diagrama de funcionamento do \textit{Round-Robin} \cite{slides_joahannnes}}
   \label{fig:rr}
 \end{figure}
