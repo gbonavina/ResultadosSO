@@ -1,10 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.26)  3 JUN 2026 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.26)  4 JUN 2026 13:33
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex
-(/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex
+**relatorio-final.tex
+(./relatorio-final.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -25,14 +24,18 @@ File: size12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 \bibindent=\dimen140
 ) (./sbc-template.sty
 Package: sbc-template 2001/06/09
- (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
-) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
- (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ))
 \Gm@cnth=\count195
@@ -47,9 +50,11 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@layouthoffset=\dimen147
 \Gm@layoutvoffset=\dimen148
 \Gm@dimlist=\toks18
-) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
- (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen149
 \captionmargin=\dimen150
@@ -63,11 +68,13 @@ Package caption Info: Standard document class detected.
 )
 \c@caption@flags=\count198
 \c@continuedfloat=\count199
-) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 )
 \c@instn=\count266
- (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \ttl@box=\box51
 \beforetitleunit=\skip50
@@ -78,45 +85,57 @@ Package: titlesec 2023/10/27 v2.16 Sectioning titles
 \titlewidth=\dimen159
 \titlewidthlast=\dimen160
 \titlewidthfirst=\dimen161
-) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count267
-)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen162
 \Gin@req@width=\dimen163
-) (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks20
 \inpenc@posthook=\toks21
-) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
 \babel@savecnt=\count268
 \U@D=\dimen164
 \l@unhyphenated=\language89
- (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
 \bbl@dirlevel=\count269
- (/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/brazil.ldf
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/brazil.ldf
 Language: portuges 2021/07/09 v1.2t Portuguese support from the babel system
 Package babel Info: Hyphen rules for 'brazil' set to \l@portuguese
 (babel)             (\language78). Reported on input line 111.
 Package babel Info: Making " an active character on input line 143.
-)) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count270
 \float@exts=\toks22
@@ -124,14 +143,18 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks23
 \@floatcapt=\box53
 )
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 24.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
+4.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count271
 \l__pdf_internal_box=\box54
-) (./relatorio-final.aux)
+)
+(./relatorio-final.aux)
 \openout1 = `relatorio-final.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
@@ -201,9 +224,12 @@ Package caption Info: End \AtBeginDocument code.
 \everyMPtoPDFconversion=\toks25
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
- (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 26.
@@ -216,8 +242,10 @@ File: imgs/install1.jpeg Graphic file (type jpg)
 <use imgs/install1.jpeg>
 Package pdftex.def Info: imgs/install1.jpeg  used on input line 59.
 (pdftex.def)             Requested size: 204.85802pt x 143.66313pt.
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 60.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 6
+0.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
 <imgs/install2.jpeg, id=2, 782.925pt x 549.05125pt>
@@ -227,40 +255,44 @@ Package pdftex.def Info: imgs/install2.jpeg  used on input line 65.
 (pdftex.def)             Requested size: 204.85802pt x 143.66313pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} <./imgs/install1.jpeg> <./imgs/install2.jpeg>]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 84.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-di
+st/fonts/enc/dvips/base/8r.enc} <./imgs/install1.jpeg> <./imgs/install2.jpeg>]
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 8
+5.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 <imgs/banner1.jpeg, id=14, 750.805pt x 513.92pt>
 File: imgs/banner1.jpeg Graphic file (type jpg)
 <use imgs/banner1.jpeg>
-Package pdftex.def Info: imgs/banner1.jpeg  used on input line 93.
+Package pdftex.def Info: imgs/banner1.jpeg  used on input line 94.
 (pdftex.def)             Requested size: 204.85802pt x 140.21881pt.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 94.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 95.
 <imgs/banner3.jpeg, id=15, 750.805pt x 513.92pt>
 File: imgs/banner3.jpeg Graphic file (type jpg)
 <use imgs/banner3.jpeg>
-Package pdftex.def Info: imgs/banner3.jpeg  used on input line 99.
+Package pdftex.def Info: imgs/banner3.jpeg  used on input line 100.
 (pdftex.def)             Requested size: 204.85802pt x 140.21881pt.
 <imgs/banner2.jpeg, id=16, 750.805pt x 513.92pt>
 File: imgs/banner2.jpeg Graphic file (type jpg)
 <use imgs/banner2.jpeg>
-Package pdftex.def Info: imgs/banner2.jpeg  used on input line 111.
+Package pdftex.def Info: imgs/banner2.jpeg  used on input line 112.
 (pdftex.def)             Requested size: 213.39568pt x 146.06879pt.
  [2 <./imgs/banner1.jpeg> <./imgs/banner3.jpeg> <./imgs/banner2.jpeg>]
-<imgs/execls.jpeg, id=23, 750.805pt x 513.92pt>
+<imgs/execls.jpeg, id=22, 750.805pt x 513.92pt>
 File: imgs/execls.jpeg Graphic file (type jpg)
 <use imgs/execls.jpeg>
-Package pdftex.def Info: imgs/execls.jpeg  used on input line 126.
+Package pdftex.def Info: imgs/execls.jpeg  used on input line 127.
 (pdftex.def)             Requested size: 213.39568pt x 146.06879pt.
-<imgs/round-robin.png, id=24, 1015.795pt x 549.05125pt>
+<imgs/round-robin.png, id=23, 1015.795pt x 549.05125pt>
 File: imgs/round-robin.png Graphic file (type png)
 <use imgs/round-robin.png>
-Package pdftex.def Info: imgs/round-robin.png  used on input line 147.
+Package pdftex.def Info: imgs/round-robin.png  used on input line 148.
 (pdftex.def)             Requested size: 213.39568pt x 115.33768pt.
- [3 <./imgs/execls.jpeg> <./imgs/round-robin.png>] (./relatorio-final.bbl) [4] (./relatorio-final.aux)
+ [3 <./imgs/execls.jpeg> <./imgs/round-robin.png>] (./relatorio-final.bbl) [4] 
+(./relatorio-final.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -268,14 +300,21 @@ L3 programming layer <2024-01-22>
  ) 
 Here is how much of TeX's memory you used:
  5323 strings out of 474222
- 89849 string characters out of 5748733
+ 89706 string characters out of 5748733
  1934975 words of memory out of 5000000
- 27530 multiletter control sequences out of 15000+600000
+ 27531 multiletter control sequences out of 15000+600000
  577744 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,10n,79p,339b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on relatorio-final.pdf (4 pages, 1128655 bytes).
+ 72i,10n,79p,288b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
+rw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
+mb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on relatorio-final.pdf (4 pages, 1129549 bytes).
 PDF statistics:
  72 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream
