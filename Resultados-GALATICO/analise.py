@@ -40,14 +40,13 @@ def parse_file(path):
                 continue
             ptype = parts[0]
             try:
-                t1 = float(parts[1])
-                t2 = float(parts[2])
+                tempo = float(parts[2])
             except ValueError:
                 continue
             if ptype == 'CPU':
-                cpu_times.append(t1 * S2MS)
+                cpu_times.append(tempo * S2MS)
             elif ptype == 'IO':
-                io_times.append(t2 * S2MS)
+                io_times.append(tempo * S2MS)
     return cpu_times, io_times
 
 
@@ -102,6 +101,23 @@ OFFSETS = {'Padrao': -1.5, 'FCFS': -0.5, 'RR': 0.5, 'MF': 1.5}
 
 def bar_chart(mean_col, std_col, ylabel, title, filename):
     fig, ax = plt.subplots(figsize=(9, 5))
+
+    # Calculate maximum value + error to define a dynamic offset
+    max_val = 0
+    for sched in SCHED_ORDER:
+        sub = df[df['scheduler'] == sched].set_index('procs')
+        for p in PROC_COUNTS:
+            if p in sub.index:
+                val = sub.loc[p, mean_col]
+                err = sub.loc[p, std_col]
+                if not np.isnan(val):
+                    val_err = val + (err if not np.isnan(err) else 0)
+                    if val_err > max_val:
+                        max_val = val_err
+    
+    # Define a padding of 1.5% of the maximum value with a small minimum
+    padding = max(max_val * 0.015, 0.05) if mean_col == 'cpu_mean' else max(max_val * 0.015, 10.0)
+
     for sched in SCHED_ORDER:
         sub = df[df['scheduler'] == sched].set_index('procs')
         vals = [sub.loc[p, mean_col] if p in sub.index else np.nan for p in PROC_COUNTS]
@@ -111,11 +127,14 @@ def bar_chart(mean_col, std_col, ylabel, title, filename):
                       color=COLORS[sched], edgecolor='white', linewidth=0.6)
         ax.errorbar(xpos, vals, yerr=errs, fmt='none',
                     ecolor='black', elinewidth=1.2, capsize=4, capthick=1.2)
-        for bar, v in zip(bars, vals):
+        for bar, v, e in zip(bars, vals, errs):
             if not np.isnan(v):
+                err_val = e if not np.isnan(e) else 0
+                y_pos = v + err_val + padding
+                fmt = f'{v:.1f}' if mean_col == 'cpu_mean' else f'{v:.0f}'
                 ax.text(bar.get_x() + bar.get_width() / 2,
-                        bar.get_height() + max(errs) * 0.12 + 20,
-                        f'{v:.0f}', ha='center', va='bottom', fontsize=7)
+                        y_pos,
+                        fmt, ha='center', va='bottom', fontsize=7)
     ax.set_xticks(X)
     ax.set_xticklabels([str(p) for p in PROC_COUNTS])
     ax.set_xlabel('Numero de processos', fontsize=11)
