@@ -135,7 +135,7 @@ para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa
 Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de escalonamento no sistema operacional MINIX 3.4.0rc6. A metodologia consiste na análise teórica e na modificação do código-fonte do sistema para implementar três políticas de escalonamento distintas, além da abordagem padrão do MINIX. Para isso, foram implementados os algoritmos: Round-Robin, Múltiplas Filas e \textit{First-Come, First-Served} (FCFS).
 
 Para analisar o comportamento e a eficiência de cada algoritmo sob diferentes perfis de carga, serão conduzidos testes comparativos simulando cenários com processos intensivos em computação (\textit{CPU-bound}) e intensivos em entrada/saída (\textit{I/O-bound}). A avaliação quantitativa será realizada por meio do programa de testes \texttt{teste\_processos.c}, variando-se a carga de trabalho em escalas de 10, 50, 100 e 200 processos simultâneos. 
-Adicionalmente, o sistema será avaliado em cenários extremos, submetendo os escalonadores à execução de 10 mil processos \textit{I/O-bound} e 1 milhão de processos \textit{CPU-bound}.
+Adicionalmente, o sistema será avaliado em diferentes cenários, submetendo os escalonadores à execução de 10 mil processos \textit{I/O-bound} e 1 milhão de processos \textit{CPU-bound}.
 \section{Descrição dos Algortimos de Escalonamento}
 
 \subsection{Algoritmo Padrão do MINIX}
@@ -157,23 +157,30 @@ Removeu-se a política MLFQ no SCHED em \texttt{do\_noquantum()} eliminou-se \te
 \subsection{Algoritmo a ser escolhido}
 
 \section{Resultados Obtidos e Discussão}
+Para garantir a robustez estatística de nossos resultados, realizamos 5 execuções para cada algoritmo, e calculamos a média e o desvio-padrão de cada um deles. Ao final
+das execuções, foi cofeccionado um gráfico de barras para cada classe de processos, no qual o eixo x representa o número de processos e o eixo y representa o tempo de execução médio.
 
+Também é válido ressaltar que todos os testes de desempenho foram executados no mesmo computador, o que garante que os resultados são consistentes e não foram afetados por fatores externos. 
+A configuração do computador utilizado foi um processador 12th Gen Intel(R) Core(TM) i5-12500H com 16GB de RAM, que estava com o Windows 11 instalado. Por fim, a versão da Oracle VirtualBox é a 7.2.6.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{imgs/results_cpu_bound.jpeg}
   \caption{Resultados obtidos para processos \textit{CPU-bound}}
   \label{fig:results_cpu_bound}
-\end{figure}
+\end{figure}  
+
+É possível vericar na Figura \ref{fig:results_cpu_bound} que, com uma carga base de 10 processos, o tempo de retorno é aproximadamente 0.0 ms para todos os algoritmos. O comportamento dos algoritmos começa a divergir em 50 processos, onde o algoritmo MF se destaca com o menor tempo médio de resposta (1.1 ms) \textbf{pocoto escreve o motivo}.
+À medida que o sistema é levado a cenários de alta concorrência (100 e 200 processos), os algoritmos FCFS e Padrão demonstram melhor escalabilidade e estabilidade \textbf{justificar porque breno}. No teste mais extremo de 200 processos, o FCFS obtém a melhor marca com 10.0 ms, seguido rigorosamente pelo escalonador Padrão com 10.2 ms. \textbf{O desempenho superior do FCFS nestas condições se justifica teoricamente pela sua natureza não preemptiva: processos limitados por CPU executam até o fim sem interrupções forçadas, eliminando o overhead gerado por constantes trocas de contexto. breno verificar informacao}
+Em contrapartida, o algoritmo Round Robin (RR) sofre o maior impacto sob carga pesada, atingindo 12.1 ms e exibindo a maior variância (desvio-padrão) entre as rodadas. Isso ocorre devido ao número de processos na fila, pois o quantum com fração justa será muito menor ($\frac{1000}{200} = 5\,ms$), dessa forma, um processo que em execução ficará pouco tempo na CPU, sendo necessário muitas trocas de contexto.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{imgs/results_io_bound.jpeg}
   \caption{Resultados obtidos para processos \textit{IO-bound}}
   \label{fig:results_io_bound}
-\end{figure}
-
-Para garantir a robustez estatística de nossos resultados, realizamos 5 execuções para cada caso, e calculamos a média e o desvio padrão de cada algoritmo. Ao final
-das execuções, foi cofeccionado um gráfico de barras para cada algoritmo, onde o eixo x representa o número de processos e o eixo y representa o tempo de execução médio.
+\end{figure}  
+No gráfico de processos IO-bound, os tempos de retorno operam na casa dos segundos, refletindo o alto custo das operações de espera por dispositivos. Neste ambiente, o algoritmo FCFS apresenta sistematicamente a melhor performance em todas as faixas de teste, variando de 10.0 s com 10 processos até 199.0 s com 200 processos. O Round Robin (RR) acompanha o FCFS de perto como a segunda melhor alternativa para I/O intenso, fechando o pior caso com 202.8 s.
+Por outro lado, algoritmos baseados em prioridades dinâmicas mostraram-se menos favoráveis para este tipo exclusivo de carga. O algoritmo MF obteve o tempo de retorno mais lento no pico de estresse, marcando 212.3 s com 200 processos, e o Padrão apresentou a segunda pior marca neste mesmo nível (209.9 s). Essa degradação em algoritmos complexos (Padrão e MF) ocorre porque processos de I/O frequentemente bloqueiam e retornam à fila de prontos; a manipulação das múltiplas filas pode introduzir pequenos atrasos em relação a um esquema FIFO simples, onde o processo recém-acordado do I/O entra numa fila plana e, não havendo preempção de tempo no FCFS, rapidamente retoma o processador para emitir seu próximo comando de I/O, otimizando o paralelismo entre dispositivos e CPU.
 
 
 \bibliographystyle{sbc}
