@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.26)  3 JUN 2026 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.26)  4 JUN 2026 16:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -249,33 +249,42 @@ File: imgs/banner2.jpeg Graphic file (type jpg)
 <use imgs/banner2.jpeg>
 Package pdftex.def Info: imgs/banner2.jpeg  used on input line 111.
 (pdftex.def)             Requested size: 213.39568pt x 146.06879pt.
- [2 <./imgs/banner1.jpeg> <./imgs/banner3.jpeg> <./imgs/banner2.jpeg>]
+
+Underfull \hbox (badness 1735) in paragraph at lines 121--122
+[]\OT1/ptm/m/n/12 Inicialmente, adicionou-se o campo \OT1/pcr/m/n/12 execpath []\OT1/ptm/m/n/12 a es-tru-tura com-par-ti-lhada
+ []
+
+[2 <./imgs/banner1.jpeg> <./imgs/banner3.jpeg> <./imgs/banner2.jpeg>]
 <imgs/execls.jpeg, id=23, 750.805pt x 513.92pt>
 File: imgs/execls.jpeg Graphic file (type jpg)
 <use imgs/execls.jpeg>
-Package pdftex.def Info: imgs/execls.jpeg  used on input line 126.
+Package pdftex.def Info: imgs/execls.jpeg  used on input line 128.
 (pdftex.def)             Requested size: 213.39568pt x 146.06879pt.
-<imgs/round-robin.png, id=24, 1015.795pt x 549.05125pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <./imgs/execls.jpeg>]
+<imgs/round-robin.png, id=27, 1015.795pt x 549.05125pt>
 File: imgs/round-robin.png Graphic file (type png)
 <use imgs/round-robin.png>
-Package pdftex.def Info: imgs/round-robin.png  used on input line 147.
+Package pdftex.def Info: imgs/round-robin.png  used on input line 150.
 (pdftex.def)             Requested size: 213.39568pt x 115.33768pt.
- [3 <./imgs/execls.jpeg> <./imgs/round-robin.png>] (./relatorio-final.bbl) [4] (./relatorio-final.aux)
+ (./relatorio-final.bbl) [4 <./imgs/round-robin.png>] (./relatorio-final.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5323 strings out of 474222
- 89849 string characters out of 5748733
+ 5325 strings out of 474222
+ 89869 string characters out of 5748733
  1934975 words of memory out of 5000000
- 27530 multiletter control sequences out of 15000+600000
+ 27532 multiletter control sequences out of 15000+600000
  577744 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,10n,79p,339b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,10n,79p,575b,479s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on relatorio-final.pdf (4 pages, 1128655 bytes).
+Output written on relatorio-final.pdf (4 pages, 1133424 bytes).
 PDF statistics:
  72 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream

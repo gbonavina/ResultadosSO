@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex relatorio-final"] 1780528465.14861 "relatorio-final.aux" "relatorio-final.bbl" "relatorio-final" 1780528488.65609 0
-  "./sbc-template.bib" 1780526696.284 492 181ba8d70906cdb254c4561b303940f5 ""
-  "./sbc.bst" 1780526696.288 21864 a668496cca21cfdd211f7fb5f0d57565 ""
-  "relatorio-final.aux" 1780528488.26224 3060 e965d0f7160dcafe86b2d8062a441267 "pdflatex"
+["bibtex relatorio-final"] 1780600249.00186 "relatorio-final.aux" "relatorio-final.bbl" "relatorio-final" 1780600394.807 0
+  "./sbc-template.bib" 1780598868.1937 688 0d1dca9aac4f4e5b73f7576da6c96805 ""
+  "./sbc.bst" 1780597528.68258 21864 a668496cca21cfdd211f7fb5f0d57565 ""
+  "relatorio-final.aux" 1780600394.55704 3123 ee4cdcb12526a77334912a46068d54b2 "pdflatex"
   (generated)
   "relatorio-final.bbl"
   "relatorio-final.blg"
   (rewritten before read)
-["pdflatex"] 1780528486.26389 "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" "relatorio-final.pdf" "relatorio-final" 1780528488.65639 0
+["pdflatex"] 1780600393.32548 "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" "relatorio-final.pdf" "relatorio-final" 1780600394.80716 0
   "/etc/texmf/web2c/texmf.cnf" 1764035432.63935 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" 1780528485.9589 6991 5824d7c81000b67c9829722c9436abea ""
+  "/home/gbonavina/Github/ResultadosSO/template-latex/relatorio-final.tex" 1780600393.06933 9066 93e058aad5dd8e7ad25690bfd141f8d4 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -88,17 +88,17 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1779838614.1554 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1779838670 8212630 05000351870d03acde016ad5b8caec8e ""
-  "imgs/banner1.jpeg" 1780526696.252 120217 dc89ce28861bc968558586600e71f02e ""
-  "imgs/banner2.jpeg" 1780526696.254 111983 c0ba53996877f0f30548caaafc574bd8 ""
-  "imgs/banner3.jpeg" 1780526696.256 129004 7ba8649aff9a3b70190bfd0975d3ce33 ""
-  "imgs/execls.jpeg" 1780526696.258 72256 3b263220d3136da9585b5d96c368ca43 ""
-  "imgs/install1.jpeg" 1780528143.04296 90426 80bc2c81bec52dda256fb79b63fbed12 ""
-  "imgs/install2.jpeg" 1780528191.79883 92236 2b35504d96434d1d721be7c9731c7bad ""
-  "imgs/round-robin.png" 1780526696.263 462460 962b2cd9f64fd231b82be6810b8674cc ""
-  "relatorio-final.aux" 1780528488.26224 3060 e965d0f7160dcafe86b2d8062a441267 "pdflatex"
-  "relatorio-final.bbl" 1780528465.34686 406 8419b5874477046bb15b716c7ff8667c "bibtex relatorio-final"
-  "relatorio-final.tex" 1780528485.9589 6991 5824d7c81000b67c9829722c9436abea ""
-  "sbc-template.sty" 1780526696.287 6074 ecc54df5124d8db4ac67c42cc728f3a5 ""
+  "imgs/banner1.jpeg" 1780597528.65356 120217 dc89ce28861bc968558586600e71f02e ""
+  "imgs/banner2.jpeg" 1780597528.65656 111983 c0ba53996877f0f30548caaafc574bd8 ""
+  "imgs/banner3.jpeg" 1780597528.65856 129004 7ba8649aff9a3b70190bfd0975d3ce33 ""
+  "imgs/execls.jpeg" 1780597528.65956 72256 3b263220d3136da9585b5d96c368ca43 ""
+  "imgs/install1.jpeg" 1780597528.66156 90426 80bc2c81bec52dda256fb79b63fbed12 ""
+  "imgs/install2.jpeg" 1780597528.66356 92236 2b35504d96434d1d721be7c9731c7bad ""
+  "imgs/round-robin.png" 1780597528.66756 462460 962b2cd9f64fd231b82be6810b8674cc ""
+  "relatorio-final.aux" 1780600394.55704 3123 ee4cdcb12526a77334912a46068d54b2 "pdflatex"
+  "relatorio-final.bbl" 1780600249.24904 579 81447ba0a6f8d0924e1efc13d7db3455 "bibtex relatorio-final"
+  "relatorio-final.tex" 1780600393.06933 9066 93e058aad5dd8e7ad25690bfd141f8d4 ""
+  "sbc-template.sty" 1780597528.68192 6074 ecc54df5124d8db4ac67c42cc728f3a5 ""
   (generated)
   "relatorio-final.aux"
   "relatorio-final.log"
