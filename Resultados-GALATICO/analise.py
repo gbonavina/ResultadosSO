@@ -50,10 +50,11 @@ def parse_file(path):
     return cpu_times, io_times
 
 
-# Build records: one row per (scheduler, procs, run) with per-run mean
-records = []
+# ── 1. Build df_rodadas (standard deviation between 5 run means) ──
+records_rodadas = []
 for sched, info in SCHEDULERS.items():
     for procs in PROC_COUNTS:
+        run_cpu_means, run_io_means = [], []
         for run in RUNS:
             fname = info['pattern'].format(run=run, procs=procs)
             fpath = os.path.join(BASE, info['dir'], fname)
@@ -61,30 +62,52 @@ for sched, info in SCHEDULERS.items():
                 print(f"  MISSING: {fpath}")
                 continue
             cpu_t, io_t = parse_file(fpath)
-            records.append({
-                'scheduler': sched,
-                'procs': procs,
-                'run': run,
-                'cpu_run_mean': np.mean(cpu_t) if cpu_t else np.nan,
-                'io_run_mean':  np.mean(io_t)  if io_t  else np.nan,
-            })
+            if cpu_t:
+                run_cpu_means.append(np.mean(cpu_t))
+            if io_t:
+                run_io_means.append(np.mean(io_t))
+        records_rodadas.append({
+            'scheduler': sched,
+            'procs': procs,
+            'cpu_mean': np.mean(run_cpu_means) if run_cpu_means else np.nan,
+            'cpu_std':  np.std(run_cpu_means, ddof=1) if len(run_cpu_means) > 1 else np.nan,
+            'io_mean':  np.mean(run_io_means) if run_io_means else np.nan,
+            'io_std':   np.std(run_io_means, ddof=1) if len(run_io_means) > 1 else np.nan,
+        })
+df_rodadas = pd.DataFrame(records_rodadas)
 
-raw = pd.DataFrame(records)
+# ── 2. Build df_processos (standard deviation across all processes combined) ──
+records_processos = []
+for sched, info in SCHEDULERS.items():
+    for procs in PROC_COUNTS:
+        cpu_all, io_all = [], []
+        for run in RUNS:
+            fname = info['pattern'].format(run=run, procs=procs)
+            fpath = os.path.join(BASE, info['dir'], fname)
+            if not os.path.exists(fpath):
+                print(f"  MISSING: {fpath}")
+                continue
+            cpu_t, io_t = parse_file(fpath)
+            cpu_all.extend(cpu_t)
+            io_all.extend(io_t)
+        records_processos.append({
+            'scheduler': sched,
+            'procs': procs,
+            'cpu_mean': np.mean(cpu_all) if cpu_all else np.nan,
+            'cpu_std':  np.std(cpu_all, ddof=1) if len(cpu_all) > 1 else np.nan,
+            'io_mean':  np.mean(io_all) if io_all else np.nan,
+            'io_std':   np.std(io_all, ddof=1) if len(io_all) > 1 else np.nan,
+        })
+df_processos = pd.DataFrame(records_processos)
 
-# Aggregate: mean and std across 5 runs
-df = (
-    raw.groupby(['scheduler', 'procs'])
-    .agg(
-        cpu_mean=('cpu_run_mean', 'mean'),
-        cpu_std= ('cpu_run_mean', 'std'),
-        io_mean= ('io_run_mean',  'mean'),
-        io_std=  ('io_run_mean',  'std'),
-    )
-    .reset_index()
-)
+# Print comparison of methods and save CSVs
+print("=== METODOLOGIA 1: DESVIO ENTRE RODADAS (Stability) ===")
+print(df_rodadas.to_string(index=False))
+df_rodadas.to_csv(os.path.join(BASE, 'resumo_resultados_rodadas.csv'), index=False)
 
-print(df.to_string(index=False))
-df.to_csv(os.path.join(BASE, 'resumo_resultados.csv'), index=False)
+print("\n=== METODOLOGIA 2: DESVIO ENTRE PROCESSOS INDIVIDUAIS (Fairness) ===")
+print(df_processos.to_string(index=False))
+df_processos.to_csv(os.path.join(BASE, 'resumo_resultados_processos.csv'), index=False)
 
 # ── Plot settings ──────────────────────────────────────────────
 COLORS = {
@@ -99,7 +122,7 @@ W = 0.18
 OFFSETS = {'Padrao': -1.5, 'FCFS': -0.5, 'RR': 0.5, 'MF': 1.5}
 
 
-def bar_chart(mean_col, std_col, ylabel, title, filename):
+def bar_chart(df, mean_col, std_col, ylabel, title, filename, scale=1.0):
     fig, ax = plt.subplots(figsize=(9, 5))
 
     # Calculate maximum value + error to define a dynamic offset
@@ -108,20 +131,20 @@ def bar_chart(mean_col, std_col, ylabel, title, filename):
         sub = df[df['scheduler'] == sched].set_index('procs')
         for p in PROC_COUNTS:
             if p in sub.index:
-                val = sub.loc[p, mean_col]
-                err = sub.loc[p, std_col]
+                val = sub.loc[p, mean_col] / scale
+                err = sub.loc[p, std_col] / scale
                 if not np.isnan(val):
                     val_err = val + (err if not np.isnan(err) else 0)
                     if val_err > max_val:
                         max_val = val_err
     
     # Define a padding of 1.5% of the maximum value with a small minimum
-    padding = max(max_val * 0.015, 0.05) if mean_col == 'cpu_mean' else max(max_val * 0.015, 10.0)
+    padding = max(max_val * 0.015, 0.05)
 
     for sched in SCHED_ORDER:
         sub = df[df['scheduler'] == sched].set_index('procs')
-        vals = [sub.loc[p, mean_col] if p in sub.index else np.nan for p in PROC_COUNTS]
-        errs = [sub.loc[p, std_col]  if p in sub.index else np.nan for p in PROC_COUNTS]
+        vals = [sub.loc[p, mean_col] / scale if p in sub.index else np.nan for p in PROC_COUNTS]
+        errs = [sub.loc[p, std_col] / scale if p in sub.index else np.nan for p in PROC_COUNTS]
         xpos = X + OFFSETS[sched] * W
         bars = ax.bar(xpos, vals, W, label=sched,
                       color=COLORS[sched], edgecolor='white', linewidth=0.6)
@@ -131,7 +154,7 @@ def bar_chart(mean_col, std_col, ylabel, title, filename):
             if not np.isnan(v):
                 err_val = e if not np.isnan(e) else 0
                 y_pos = v + err_val + padding
-                fmt = f'{v:.1f}' if mean_col == 'cpu_mean' else f'{v:.0f}'
+                fmt = f'{v:.1f}'
                 ax.text(bar.get_x() + bar.get_width() / 2,
                         y_pos,
                         fmt, ha='center', va='bottom', fontsize=7)
@@ -149,43 +172,66 @@ def bar_chart(mean_col, std_col, ylabel, title, filename):
     print(f"Saved: {filename}")
 
 
-bar_chart('cpu_mean', 'cpu_std',
+def line_chart(df, title, filename, scale_cpu=1.0, scale_io=1.0):
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    for ax, mean_col, std_col, t, scale, ylabel in [
+        (axes[0], 'cpu_mean', 'cpu_std', 'CPU-bound - Tempo medio de retorno', scale_cpu, 'Tempo medio de retorno (ms)'),
+        (axes[1], 'io_mean',  'io_std',  'IO-bound - Tempo medio de retorno', scale_io, 'Tempo medio de retorno (s)'),
+    ]:
+        for sched in SCHED_ORDER:
+            sub = df[df['scheduler'] == sched].sort_values('procs')
+            ax.errorbar(sub['procs'], sub[mean_col] / scale, yerr=sub[std_col] / scale,
+                        label=sched, color=COLORS[sched],
+                        marker='o', linewidth=2, markersize=6,
+                        capsize=4, capthick=1.2, elinewidth=1.2)
+        ax.set_xlabel('Numero de processos', fontsize=10)
+        ax.set_ylabel(ylabel, fontsize=10)
+        ax.set_title(t, fontsize=11, fontweight='bold')
+        ax.set_xticks(PROC_COUNTS)
+        ax.legend(fontsize=9)
+        ax.grid(alpha=0.35)
+
+    plt.suptitle(title, fontsize=13, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig(os.path.join(BASE, filename), dpi=150)
+    plt.close()
+    print(f"Saved: {filename}")
+
+
+# ── GENERATE PLOTS ──
+
+# Option 1: Standard deviation between 5 run means (Rodadas)
+bar_chart(df_rodadas, 'cpu_mean', 'cpu_std',
           'Tempo medio de retorno (ms)',
-          'Processos CPU-bound - Tempo medio de retorno',
-          'grafico_cpu_media.png')
+          'Processos CPU-bound - Tempo medio (Desvio entre Rodadas)',
+          'grafico_cpu_media_rodadas.png')
 
-bar_chart('io_mean', 'io_std',
+bar_chart(df_rodadas, 'io_mean', 'io_std',
+          'Tempo medio de retorno (s)',
+          'Processos IO-bound - Tempo medio (Desvio entre Rodadas)',
+          'grafico_io_media_rodadas.png',
+          scale=1000.0)
+
+line_chart(df_rodadas,
+           'Comparacao dos Escalonadores (Desvio entre Rodadas)',
+           'grafico_linha_comparativo_rodadas.png',
+           scale_io=1000.0)
+
+# Option 2: Standard deviation across individual processes (Processos)
+bar_chart(df_processos, 'cpu_mean', 'cpu_std',
           'Tempo medio de retorno (ms)',
-          'Processos IO-bound - Tempo medio de retorno',
-          'grafico_io_media.png')
+          'Processos CPU-bound - Tempo medio (Desvio entre Processos)',
+          'grafico_cpu_media_processos.png')
 
-# ── Side-by-side comparison (line chart) ──────────────────────
-fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-for ax, mean_col, std_col, title in [
-    (axes[0], 'cpu_mean', 'cpu_std', 'CPU-bound - Tempo medio de retorno'),
-    (axes[1], 'io_mean',  'io_std',  'IO-bound - Tempo medio de retorno'),
-]:
-    for sched in SCHED_ORDER:
-        sub = df[df['scheduler'] == sched].sort_values('procs')
-        ax.errorbar(sub['procs'], sub[mean_col], yerr=sub[std_col],
-                    label=sched, color=COLORS[sched],
-                    marker='o', linewidth=2, markersize=6,
-                    capsize=4, capthick=1.2, elinewidth=1.2)
-    ax.set_xlabel('Numero de processos', fontsize=10)
-    ax.set_ylabel('Tempo medio de retorno (ms)', fontsize=10)
-    ax.set_title(title, fontsize=11, fontweight='bold')
-    ax.set_xticks(PROC_COUNTS)
-    ax.legend(fontsize=9)
-    ax.grid(alpha=0.35)
+bar_chart(df_processos, 'io_mean', 'io_std',
+          'Tempo medio de retorno (s)',
+          'Processos IO-bound - Tempo medio (Desvio entre Processos)',
+          'grafico_io_media_processos.png',
+          scale=1000.0)
 
-plt.suptitle('Comparacao dos Escalonadores', fontsize=13, fontweight='bold')
-plt.tight_layout()
-plt.savefig(os.path.join(BASE, 'grafico_linha_comparativo.png'), dpi=150)
-plt.close()
-print("Saved: grafico_linha_comparativo.png")
+line_chart(df_processos,
+           'Comparacao dos Escalonadores (Desvio entre Processos)',
+           'grafico_linha_comparativo_processos.png',
+           scale_io=1000.0)
 
-print("\nConcluido. Arquivos gerados:")
-print("  resumo_resultados.csv")
-print("  grafico_cpu_media.png")
-print("  grafico_io_media.png")
-print("  grafico_linha_comparativo.png")
+print("\nConcluido! Todos os arquivos foram gerados e salvos com sucesso.")
