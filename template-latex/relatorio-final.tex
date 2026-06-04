@@ -146,25 +146,31 @@ mais simples e antigos devido à sua fácil implementação. Seu funcionamento g
 de uma fatia de tempo de CPU (\textit{quantum}), em que o processo que está na CPU terá um tempo limitado
 de uso e, ao final deste tempo, haverá preempção e um novo processo será escolhido para ser executado \cite{tanembaum}.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.5\linewidth]{imgs/round-robin.png}
-  \caption{Diagrama de funcionamento do \textit{Round-Robin} \cite{slides_joahannnes}}
-  \label{fig:rr}
-\end{figure}
+A implementação concentrou-se em \texttt{minix/servers/sched/schedule.c}, sem alterar o \textit{kernel}. O quantum é $\frac{1000}{n}\,ms$, com $n$ dado por \texttt{count\_ready\_user\_queue()} (processos de usuário prontos em \texttt{USER\_Q}, via \texttt{sys\_getinfo(GET\_PROC)} e \texttt{proc\_is\_runnable()}). Foram incluídos \texttt{<minix/timers.h>} e \texttt{"kernel/proc.h"} e criadas \texttt{apply\_variable\_quantum()} e \texttt{reschedule\_all\_user\_quanta()}; em \texttt{do\_start\_scheduling()}, \texttt{do\_stop\_scheduling()} e \texttt{do\_noquantum()} o tempo de CPU é recalculado e aplicado com \texttt{sys\_schedule()}. Processos de sistema (\texttt{is\_system\_proc}) mantêm prioridade própria; os restantes ficam fixos em \texttt{USER\_Q}.
 
-Para implementá-lo, é necessária a utilização de uma fila circular de processos prontos. Para nossa implementação,
-substituimos as múltiplas filas do algoritmo padrão do MINIX por uma fila única de processos de usuário (\texttt{USER\_Q} 7),
-além disso, disabilitamos os algoritmos de demoção, promoções periódicas de prioridade e rebalanceamento de filas.
-Por fim, modificamos o \textit{quantum} para que ele seja variável, com a seguinte lógica: cada processo terá uma fatia de CPU
-inversamente proporcional ao número de processos de usuário prontos. Em sua fila circular, quando o \textit{quantum} do processo em execução acabar, ele deverá ser encaminhado para o final da fila.
-Do mesmo modo, quando ele for bloqueado por entrada e saída, quando seu estado for atualizado para pronto, ele deverá retornar ao final da fila, como pode ser visto na Figura \ref{fig:rr}.
+Para obter RR sem mudar \texttt{enqueue()}, \texttt{dequeue()} e \texttt{pick\_proc()} (\texttt{minix/kernel/proc.c}), 
+todos os usuários são forçados a \texttt{USER\_Q} (7) em \texttt{do\_start\_scheduling()} e \texttt{do\_nice()}; 
+a rotação na cauda ao expirar o quantum ou ao desbloquear por E/S equivale ao \textit{Round Robin} entre processos nessa fila.
+ Em \texttt{minix/servers/pm/utility.c}, \, \texttt{nice\_to\_priority()} passa sempre \texttt{*new\_q = USER\_Q}, pelo que \texttt{nice()} deixa de distribuir processos pelas 16 filas.
 
-
-\subsection{Múltiplas Filas}
+Removeu-se a política MLFQ no SCHED em \texttt{do\_noquantum()} eliminou-se \texttt{rmp->priority += 1}. \texttt{balance\_queues()} e \texttt{init\_scheduling()} ficaram vazias e em \texttt{main.c} deixou de se chamar \texttt{balance\_queues()} nas notificações do CLOCK. Ao expirar o quantum, o processo permanece em \texttt{USER\_Q}, recalcula a fatia com \texttt{apply\_variable\_quantum()} e reagenda-se com \texttt{schedule\_process\_local()} (reinserção na cauda no kernel via \texttt{sched\_proc}).
 \subsection{Algoritmo a ser escolhido}
 
 \section{Resultados Obtidos e Discussão}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{imgs/results_cpu_bound.jpeg}
+  \caption{Resultados obtidos para processos \textit{CPU-bound}}
+  \label{fig:results_cpu_bound}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\linewidth]{imgs/results_io_bound.jpeg}
+  \caption{Resultados obtidos para processos \textit{IO-bound}}
+  \label{fig:results_io_bound}
+\end{figure}
 
 Para garantir a robustez estatística de nossos resultados, realizamos 5 execuções para cada caso, e calculamos a média e o desvio padrão de cada algoritmo. Ao final
 das execuções, foi cofeccionado um gráfico de barras para cada algoritmo, onde o eixo x representa o número de processos e o eixo y representa o tempo de execução médio.
