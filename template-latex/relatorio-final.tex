@@ -117,10 +117,12 @@ pode ser encontrado na Figura \ref{fig:banner2}
 
 \section{Mudança \texttt{exec.c}}
 
-Para que possamos imprimir o nome de cada arquivo que é executado pelo SO, foi necessário modificar o arquivo
-em \texttt{minix/minix/servers/vfs/exec.c}. Para fazer essa adaptação, foi identificada a variável \texttt{finalexec}, que representa 
-um \textit{buffer} com o caminho completo do executável. Dessa forma, foi acrescentado um \textit{printf} desse \textit{buffer}, da forma \texttt{Executando: <caminho/comando>}.
-O resultado dessa modificação pode ser encontrado na Figura \ref{fig:exec_ls}.
+Para registrar a execução de processos exibindo o comando e seu caminho absoluto, a implementação foi dividida entre o \textit{Virtual File System} (VFS) e o \textit{Process Manager} (PM), respeitando a modularidade da arquitetura do MINIX \cite{minix3wiki}. 
+
+Inicialmente, adicionou-se o campo \texttt{execpath} à estrutura compartilhada \texttt{exec\_info} (no arquivo \texttt{libexec.h}) como um campo de comunicação entre o VFS e o PM. No VFS (\texttt{vfs/exec.c}), logo após o carregamento do executável, o caminho absoluto armazenado na variável \texttt{finalexec} é copiado para \texttt{execi.args.execpath} utilizando a função \texttt{strlcpy}. Em seguida, o VFS aciona o PM por meio de \texttt{libexec\_pm\_newexec}.
+
+A exibição da mensagem foi centralizada no PM (\texttt{pm/exec.c}). Na rotina \texttt{do\_newexec}, os dados preenchidos pelo VFS são recebidos via \texttt{sys\_datacopy}. Após a cópia dos argumentos para a memória do PM, inseriu-se um \texttt{printf} 
+para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa modificação pode ser encontrado na Figura \ref{fig:exec_ls}.
 
 \begin{figure}[H]
   \centering
@@ -129,10 +131,11 @@ O resultado dessa modificação pode ser encontrado na Figura \ref{fig:exec_ls}.
   \label{fig:exec_ls}
 \end{figure}
 
-
-
 \section{Descrição do Exercício Proposto}
+Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de escalonamento no sistema operacional MINIX 3.4.0rc6. A metodologia consiste na análise teórica e na modificação do código-fonte do sistema para implementar três políticas de escalonamento distintas, além da abordagem padrão do MINIX. Para isso, foram implementados os algoritmos: Round-Robin, Múltiplas Filas e \textit{First-Come, First-Served} (FCFS).
 
+Para analisar o comportamento e a eficiência de cada algoritmo sob diferentes perfis de carga, serão conduzidos testes comparativos simulando cenários com processos intensivos em computação (\textit{CPU-bound}) e intensivos em entrada/saída (\textit{I/O-bound}). A avaliação quantitativa será realizada por meio do programa de testes \texttt{teste\_processos.c}, variando-se a carga de trabalho em escalas de 10, 50, 100 e 200 processos simultâneos. 
+Adicionalmente, o sistema será avaliado em cenários extremos, submetendo os escalonadores à execução de 10 mil processos \textit{I/O-bound} e 1 milhão de processos \textit{CPU-bound}.
 \section{Descrição dos Algortimos de Escalonamento}
 
 \subsection{Algoritmo Padrão do MINIX}
@@ -162,6 +165,10 @@ Do mesmo modo, quando ele for bloqueado por entrada e saída, quando seu estado 
 \subsection{Algoritmo a ser escolhido}
 
 \section{Resultados Obtidos e Discussão}
+
+Para garantir a robustez estatística de nossos resultados, realizamos 5 execuções para cada caso, e calculamos a média e o desvio padrão de cada algoritmo. Ao final
+das execuções, foi cofeccionado um gráfico de barras para cada algoritmo, onde o eixo x representa o número de processos e o eixo y representa o tempo de execução médio.
+
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
