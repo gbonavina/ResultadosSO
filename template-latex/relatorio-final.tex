@@ -47,6 +47,38 @@ Jonas L. Durão\inst{1}, Natália V. A. do Val\inst{1}, Vinicius A. L. Andrade\i
 
 \section{Instalação}
 
+A primeira etapa deste projeto consistiu na instalação e configuração inicial do 
+MINIX na máquina virtual. Para isso, foi necessário seguir o manual de instruções
+apresentado no enunciado. Imagens da instalação podem ser encontradas nas Figuras
+\ref{fig:print_install1} e \ref{fig:print_install2}.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/install1.jpeg}
+    \caption{Etapa 7 de instalação do MINIX.}
+    \label{fig:print_install1}
+  \end{minipage}\hfill
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{imgs/install2.jpeg}
+    \caption{Atualização dos pacotes do MINIX.}
+    \label{fig:print_install2}
+  \end{minipage}
+\end{figure}
+
+Além da instalação do MINIX, também foi necessário fazer a configuração de rede no 
+\textit{Virtual Box}, ajustando a política de endereçamento MAC para incluir apenas os endereços
+MAC de placas em rede NAT.
+
+Além disso, foi necessário fazer o \textit{clone} do repositório no ambiente virtual, 
+para que possamos fazer as modificações que serão detalhadas em seções futuras deste
+relatório. Para isso, foi necessário configurar um Token de Acesso Pessoal do Github,
+o que nos permitiu executar os comandos do \textit{git} no ambiente virtual.
+
+
+
 \section{Mudança nos Banners}
 
 Para a mudança no banner durante \textit{boot} e \textit{poweroff}, foi necessário navegar no diretório \texttt{minix/minix/kernel/main.c}. 
