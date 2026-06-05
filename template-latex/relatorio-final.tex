@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 
+\usepackage{xcolor}
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
 \usepackage[utf8]{inputenc}
@@ -26,25 +27,25 @@ Jonas L. Durão\inst{1}, Natália V. A. do Val\inst{1}, Vinicius A. L. Andrade\i
 \maketitle
 
 \begin{abstract}
-  This meta-paper describes the style to be used in articles and short papers
+  \textcolor{red}{This meta-paper describes the style to be used in articles and short papers
   for SBC conferences. For papers in English, you should add just an abstract
   while for the papers in Portuguese, we also ask for an abstract in
   Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.
+  10 lines and must be in the first page of the paper.}
 \end{abstract}
      
 \begin{resumo} 
-  Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
+  \textcolor{red}{Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
   resumos de artigos para publicação nos anais das conferências organizadas
   pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
   escritos em português. Artigos em inglês deverão apresentar apenas abstract.
   Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
   não ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
-  página do artigo.
+  página do artigo.}
 \end{resumo}
 
 \section{Introdução}
-
+\textcolor{red}{FALTA ESCREVER}
 \section{Instalação}
 
 A primeira etapa deste projeto consistiu na instalação e configuração inicial do 
@@ -132,7 +133,7 @@ para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa
 \end{figure}
 
 \section{Descrição do Exercício Proposto}
-Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de escalonamento no sistema operacional MINIX 3.4.0rc6. A metodologia consiste na análise teórica e na modificação do código-fonte do sistema para implementar três políticas de escalonamento distintas, além da abordagem padrão do MINIX. Para isso, foram implementados os algoritmos: Round-Robin, Múltiplas Filas e \textit{First-Come, First-Served} (FCFS).
+Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de escalonamento no sistema operacional MINIX 3.4.0rc6. A metodologia consiste na análise teórica e na modificação do código-fonte do sistema para implementar três políticas de escalonamento distintas, além da abordagem padrão do MINIX. Para isso, foram implementados os algoritmos: Round-Robin, Múltiplas Filas com \textit{Quantum} Exponencial e \textit{First-Come, First-Served} (FCFS).
 
 Para analisar o comportamento e a eficiência de cada algoritmo sob diferentes perfis de carga, serão conduzidos testes comparativos simulando cenários com processos intensivos em computação (\textit{CPU-bound}) e intensivos em entrada/saída (\textit{I/O-bound}). A avaliação quantitativa será realizada por meio do programa de testes \texttt{teste\_processos.c}, variando-se a carga de trabalho em escalas de 10, 50, 100 e 200 processos simultâneos. 
 Adicionalmente, o sistema será avaliado em diferentes cenários, submetendo os escalonadores à execução de 10 mil processos \textit{I/O-bound} e 1 milhão de processos \textit{CPU-bound}.
@@ -140,27 +141,37 @@ Adicionalmente, o sistema será avaliado em diferentes cenários, submetendo os 
 
 \subsection{Algoritmo Padrão do MINIX}
 
-\subsection{Round-Robin}
+\subsection{Round-Robin (RR)}
 O algoritmo de escalonamento por chaveamento circular (ou \textit{Round-Robin}), é um dos algoritmos 
 mais simples e antigos devido à sua fácil implementação. Seu funcionamento gira em torno da definição
 de uma fatia de tempo de CPU (\textit{quantum}), em que o processo que está na CPU terá um tempo limitado
-de uso e, ao final deste tempo, haverá preempção e um novo processo será escolhido para ser executado \cite{tanembaum}.
+de uso e, ao final deste tempo, haverá preempção e um novo processo será escolhido para ser executado \cite[p. 109--110]{tanenbaum}.
 
-A implementação concentrou-se em \texttt{minix/servers/sched/schedule.c}, sem alterar o \textit{kernel}. O quantum é $\frac{1000}{n}\,ms$, com $n$ dado por \texttt{count\_ready\_user\_queue()} (processos de usuário prontos em \texttt{USER\_Q}, via \texttt{sys\_getinfo(GET\_PROC)} e \texttt{proc\_is\_runnable()}). Foram incluídos \texttt{<minix/timers.h>} e \texttt{"kernel/proc.h"} e criadas \texttt{apply\_variable\_quantum()} e \texttt{reschedule\_all\_user\_quanta()}; em \texttt{do\_start\_scheduling()}, \texttt{do\_stop\_scheduling()} e \texttt{do\_noquantum()} o tempo de CPU é recalculado e aplicado com \texttt{sys\_schedule()}. Processos de sistema (\texttt{is\_system\_proc}) mantêm prioridade própria; os restantes ficam fixos em \texttt{USER\_Q}.
+A implementação concentrou-se em \texttt{minix/servers/sched/schedule.c}, sem alterar o \textit{kernel}. O \textit{quantum} definido foi de $\frac{1000}{n}\,ms$, com $n$ dado por \texttt{count\_ready\_user\_queue()} (processos de usuário prontos em \texttt{USER\_Q}, via \texttt{sys\_getinfo(GET\_PROC)} e \texttt{proc\_is\_runnable()}). Foram incluídos \texttt{<minix/timers.h>} e \texttt{"kernel/proc.h"} e criadas \texttt{apply\_variable\_quantum()} e \texttt{reschedule\_all\_user\_quanta()}; em \texttt{do\_start\_scheduling()}, \texttt{do\_stop\_scheduling()} e \texttt{do\_noquantum()} o tempo de CPU é recalculado e aplicado com \texttt{sys\_schedule()}. Processos de sistema (\texttt{is\_system\_proc}) mantêm prioridade própria; os restantes ficam fixos em \texttt{USER\_Q}.
 
-Para obter RR sem mudar \texttt{enqueue()}, \texttt{dequeue()} e \texttt{pick\_proc()} (\texttt{minix/kernel/proc.c}), 
-todos os usuários são forçados a \texttt{USER\_Q} (7) em \texttt{do\_start\_scheduling()} e \texttt{do\_nice()}; 
+Para a implementação do RR ser feita sem mudar as funções \texttt{enqueue()}, \texttt{dequeue()} e \texttt{pick\_proc()} (\texttt{minix/kernel/proc.c}), 
+todos os usuários são forçados a adotar a fila \texttt{USER\_Q 7} em \texttt{do\_start\_scheduling()} e \texttt{do\_nice()}; 
 a rotação na cauda ao expirar o quantum ou ao desbloquear por E/S equivale ao \textit{Round Robin} entre processos nessa fila.
- Em \texttt{minix/servers/pm/utility.c}, \, \texttt{nice\_to\_priority()} passa sempre \texttt{*new\_q = USER\_Q}, pelo que \texttt{nice()} deixa de distribuir processos pelas 16 filas.
+ Em \texttt{minix/servers/pm/utility.c}, \, \texttt{nice\_to\_priority()} passa sempre \texttt{*new\_q = USER\_Q}, pelo que \texttt{nice()} deixa de distribuir processos pelas 16 filas. \textcolor{red}{Confuso}
 
 Removeu-se a política MLFQ no SCHED em \texttt{do\_noquantum()} eliminou-se \texttt{rmp->priority += 1}. \texttt{balance\_queues()} e \texttt{init\_scheduling()} ficaram vazias e em \texttt{main.c} deixou de se chamar \texttt{balance\_queues()} nas notificações do CLOCK. Ao expirar o quantum, o processo permanece em \texttt{USER\_Q}, recalcula a fatia com \texttt{apply\_variable\_quantum()} e reagenda-se com \texttt{schedule\_process\_local()} (reinserção na cauda no kernel via \texttt{sched\_proc}).
-\subsection{Algoritmo a ser escolhido}
+
+\subsection{Múltiplas Filas com Quantum Exponencial}
+O segundo escalonamento implementado consiste em uma alteração na política adotada pelo algoritmo de múltiplas filas padrão do MINIX. No algoritmo padrão do MINIX 3.4.0rc6, utiliza-se um \textit{quantum} fixo para cada processo de usuário, independentemente de sua fila. A modificação desenvolvida baseia-se no modelo do sistema de tempo compartilhado CTSS, implementado no IBM 7094, conforme descrito por Tanenbaum (\cite[p. 111]{tanenbaum}). Nela, parte-se do pressuposto de que é mais eficiente conceder fatias de tempo de CPU progressivamente maiores para determinados processos, em vez de assegurar períodos curtos e frequentes, reduzindo o \textit{overhead} causado pelo excesso de trocas de contexto. Sendo assim, o projeto estabelece que sempre que um processo esgotar o \textit{quantum} a ele alocado, ele seja rebaixado para a fila de prioridade imediatamente inferior, recebendo um novo \textit{quantum} cujo valor cresce exponencialmente, em potências de dois, de acordo com a sua nova fila. Para a última fila, os processos remanescentes passam a ser escalonados segundo a política \textit{Round-Robin} padrão, alternando com o \textit{quantum} correspondente àquele nível.
+
+Para implementar as alterações propostas, as modificações foram feitas no arquivo \texttt{minix/servers/sched/schedule.c}. Vale ressaltar que as novas regras de escalonamento aplicam-se exclusivamente aos processos de usuário, ou seja, aqueles que estão em filas acima de \texttt{USER\_Q 7}. Para uma implementação coerente, definiu-se uma nova fatia de tempo inicial correspondente a $10\%$ do valor padrão que o MINIX 3.4.0rc6 define para processos de usuário. Isso foi feito a partir da modificação do valor de \texttt{DEFAULT\_USER\_TIME\_SLICE} para o valor de $20$ no lugar de $200$. Isso permitiu verificar nos resultados a influência do crescimento progressivo do tempo de CPU para processos longos.
+
+Com o objetivo de desenvolver essa lógica, a função \texttt{user\_quantum\_for\_priority} foi criada para calcular, em potências de dois, o \textit{quantum} correspondente a cada nível de fila. O controle do tempo de CPU atribuído a cada processo, por sua vez, é atualizado pela função \texttt{update\_user\_quantum}. A chamada dessa função ocorre em situações distintas: em \texttt{do\_start\_scheduling()}, para inicializar o processo com o \textit{quantum} base; em \texttt{do\_noquantum()}, para atualizar o \textit{quantum} no momento da preempção por esgotamento do tempo de CPU do processo; no caso \texttt{SCHEDULING\_INHERIT}, para assegurar que o filho, criado na mesma fila de prioridade que o pai, tenha seu \textit{quantum} corretamente definido; e, por fim, em \texttt{do\_nice()}, para que a mudança de prioridade ajuste a fatia de tempo adequada.
+
+Para assegurar o comportamento definido no projeto, o rebalanceamento das filas executado periodicamente em determinados ciclos de \textit{clock} foi desativado. Para isso, em \texttt{init\_scheduling()} os trechos que fazem a chamada de \texttt{sys\_setalarm(balance\_timeout)} foram comentados, de modo que em \texttt{minix/servers/sched/main.c} não haja a invocação de \texttt{balance\_queues}.
+
+\subsection{\textit{First-Come, First-Served} (FCFS)}
 
 \section{Resultados Obtidos e Discussão}
-Para garantir a robustez estatística de nossos resultados, realizamos 5 execuções para cada algoritmo, e calculamos a média e o desvio-padrão de cada um deles. Ao final
-das execuções, foi cofeccionado um gráfico de barras para cada classe de processos, no qual o eixo x representa o número de processos e o eixo y representa o tempo de execução médio.
+Para garantir a robustez estatística de nossos resultados, realizaram-se 5 execuções para cada algoritmo, e calcularem-se a média e o desvio-padrão de cada um deles. Ao final
+das execuções, foi desenvolvido um gráfico de barras para cada classe de processos, no qual o eixo X representa o número de processos e o eixo Y representa o tempo de execução médio. Esses resultados são apresentados na Figura \ref{fig:results_cpu_bound} e na Figura \ref{fig:results_io_bound}. Neles são apresentados em azul o algoritmo padrão do MINIX, em amarelo o FCFS, em verde o \textit{Round-Robin} (RR) e em vermelho o Múltiplas Filas com \textit{Quantum} Exponencial (MF).
 
-Também é válido ressaltar que todos os testes de desempenho foram executados no mesmo computador sem uso pessoal do computador durante a execução dos testes, o que garante que os resultados são consistentes e não foram afetados por fatores externos. 
+Também é válido ressaltar que todos os testes de desempenho foram executados no mesmo computador, o qual foi mantido sem a execução de tarefas paralelas ou uso pessoal, de modo que os resultados obtidos fossem consistentes. 
 A configuração do computador utilizado foi um processador 12th Gen Intel(R) Core(TM) i5-12500H com 16GB de RAM, que estava com o Windows 11 instalado. Por fim, a versão da Oracle VirtualBox é a 7.2.6.
 \begin{figure}[H]
   \centering
@@ -169,11 +180,17 @@ A configuração do computador utilizado foi um processador 12th Gen Intel(R) Co
   \label{fig:results_cpu_bound}
 \end{figure}  
 
-É possível vericar na Figura \ref{fig:results_cpu_bound} que, com uma carga base de 10 processos, o tempo de retorno é aproximadamente 0.0 ms para todos os algoritmos. O comportamento dos algoritmos começa a divergir em 50 processos, onde o algoritmo MF se destaca com o menor tempo médio de resposta (1.1 ms) \textbf{pocoto escreve o motivo}.
-À medida que o sistema é levado a cenários de alta concorrência (100 e 200 processos), os algoritmos FCFS e Padrão demonstram melhor escalabilidade e estabilidade \textbf{justificar porque breno}. No teste mais extremo de 200 processos, o FCFS obtém a melhor marca com 10.0 ms, seguido rigorosamente pelo escalonador Padrão com 10.2 ms. \textbf{O desempenho superior do FCFS nestas condições se justifica teoricamente pela sua natureza não preemptiva: processos limitados por CPU executam até o fim sem interrupções forçadas, eliminando o overhead gerado por constantes trocas de contexto. breno verificar informacao}
-Em contrapartida, o algoritmo Round Robin (RR) sofre o maior impacto sob carga pesada, atingindo 12.1 ms e exibindo a maior variância (desvio-padrão) entre as rodadas. Isso ocorre devido ao número de processos na fila, pois o quantum com fração justa será muito menor ($\frac{1000}{200} = 5\,ms$), dessa forma, um processo que em execução ficará pouco tempo na CPU, sendo necessário muitas trocas de contexto.
+Partindo pela análise dos resultados para os processos \textit{CPU-bound}, apresentado na Figura \ref{fig:results_cpu_bound}, observa-se, de maneira geral, que o \textit{Round-Robin} teve o pior desempenho dentre todos os métodos de escalonamento em todos os casos a partir dos testes com 50 processos. \textcolor{red}{TALVEZ COLOCAR UMA EXPLICAÇÃO GERAL DO POR QUÊ COMO UM RESULTADO IMEDIATO}.
 
-Um ponto válido a ser levantado acerca da Figura \ref{fig:results_cpu_bound} é que, o algoritmo padrão do MINIX para 200 processos, mesmo sendo o segundo melhor algoritmo, é possível notar que em algumas execuções ele foi capaz de atingir performances superiores aos demais.
+
+Avaliando cada teste individualmente, foi possível verificar que, com uma carga base de 10 processos, o tempo de retorno é de $0.0 ms$ para todos os algoritmos. Ou seja, foi possível executar todos os processos dessa categoria sem nenhuma dificuldade, com todos os algoritmos sendo capazes de concluir todas as tarefas em um tempo muito rápido.
+
+As divergências entre os algoritmos passaram a ser nítidas na medida em que se aumentaram a carga de processos. Para 50 processos, o algoritmo MF se destaca com o menor tempo médio de resposta, obtendo um valor de $1.1 ms$. \textcolor{red}{Esse resultado pode ser explicado...} \textcolor{red}{Amanhã, eu, Vinícius Augusto Landim Andrade, vou redigir essa explicação, pois são 23h43 da noite.}.
+
+Na medida que o sistema é levado a cenários de alta concorrência, com o número de processos chegando a um total de $100$ e $200$, os algoritmos FCFS e o padrão do MINIX demonstram melhor escalabilidade e estabilidade \textcolor{red}{JUSTIFICATIVA BRENO}. No teste mais extremo de 200 processos, o FCFS obtém a melhor marca com 10.0 ms, seguido rigorosamente pelo escalonador Padrão com 10.2 ms. \textcolor{red}{O desempenho superior do FCFS nestas condições se justifica teoricamente pela sua natureza não preemptiva: processos limitados por CPU executam até o fim sem interrupções forçadas, eliminando o overhead gerado por constantes trocas de contexto} \textcolor{blue}{breno verificar informacao}.
+Em contrapartida, o algoritmo Round Robin (RR) sofre o maior impacto sob carga pesada, atingindo 12.1 ms e exibindo a maior variância (desvio-padrão) entre as rodadas. Isso ocorre devido ao número de processos na fila, pois o \textit{quantum} com fração justa será muito menor ($\frac{1000}{200} = 5\,ms$), dessa forma, um processo que em execução ficará pouco tempo na CPU, sendo necessário muitas trocas de contexto. \textcolor{red}{Obs: quando inserir a parte do FCFS, reajustar a estrutura do texto para explicar com coesão ambos os algoritmos}
+
+Um ponto válido a ser levantado acerca da Figura \ref{fig:results_cpu_bound} é que, o algoritmo padrão do MINIX para 200 processos, mesmo sendo o segundo melhor algoritmo, é possível notar que em algumas execuções ele foi capaz de atingir performances superiores aos demais. \textcolor{red}{Discorrer}.
 
 \begin{figure}[H]
   \centering
@@ -182,17 +199,15 @@ Um ponto válido a ser levantado acerca da Figura \ref{fig:results_cpu_bound} é
   \label{fig:results_io_bound}
 \end{figure}  
 
-No gráfico de processos IO-bound apresentado na Figura \ref{fig:results_io_bound}, os tempos de retorno operam na casa dos segundos, refletindo o alto custo das operações de entrada e saída. Neste ambiente, o algoritmo FCFS apresenta sistematicamente a melhor performance em todas as faixas de teste, variando de 10.0 s com 10 processos até 199.0 s com 200 processos. \textbf{colocar mais informações expositivas sobre o gráfico IO-bound}
+Agora, a análise será direcionada para os processos \textit{IO-bound}, com resultados apresentados na Figura \ref{fig:results_io_bound}. Note que, nesse caso, os tempos médios de retorno operam na ordem dos segundos. Isso reflete a natureza desse tipo de processo, que consiste em passar a maior parte do seu tempo de vida esperando a conclusão de operações de leitura ou escrita em dispositivos periféricos.
 
-O Round Robin (RR) acompanha o FCFS de perto como a segunda melhor alternativa para I/O intenso, fechando o pior caso com 202.8 s, apresentando 
-um comportamento mediano, como visto na Figura \ref{fig:results_io_bound}. Isso se dá por conta da característica inerente de processos IO-bound, pois o tamanho do quantum não é relevante para execução desse tipo de processo, já que 
-processos IO-bound possuem uma grande quantidade de E/S, o que torna o tempo de execução dependente do tempo de espera pela E/S. Quando o processo ficar pronto novamente, o processo será enviado o final da fila, o que torna seu comportamento com processos IO-bound similar ao do FCFS, justificando a semelhança de tempo médio de ambos os algoritmos.
-Por outro lado, algoritmos baseados em prioridades dinâmicas mostraram-se menos favoráveis para este tipo exclusivo de carga.
+A respeito dos algoritmos de escalonamento, de imediato, observa-se que o comportamento dos algoritmos foi mais \textcolor{red}{uniforme comparado ao resultado dos processos \textit{CPU-bound} COMENTÁRIO: PODEMOS AFIRMAR ISSO NUMA ESCALA DE SEGUNDOS? DEVEMOS DISCORRER SOBRE ISSO?}. 
 
-\textbf{O algoritmo MF obteve o tempo de retorno mais lento com 200 processos, marcando 212.3 s. Essa degradação em algoritmos complexos (Padrão e MF) ocorre porque 
-processos de I/O frequentemente bloqueiam e retornam à fila de prontos; a manipulação das múltiplas filas pode introduzir pequenos atrasos em relação a um esquema FIFO simples, onde o processo recém-acordado do I/O entra numa fila plana e, 
-não havendo preempção de tempo no FCFS, rapidamente retoma o processador para emitir seu próximo comando de I/O, otimizando o paralelismo entre dispositivos e CPU. (pocoto ajusta)}
+Avaliando cada um dos algoritmos individualmente, é notável que o FCFS apresentou a melhor performance em todas as faixas de teste em relação aos demais, com seu tempo médio de retorno variando de $10.0s$ com $10$ processos até $199.0s$ com 200 processos. \textcolor{red}{Por que?}. 
 
+Seguido do FCFS, o \textit{Round-Robin} foi, de maneira geral, a segunda melhor alternativa para I/O intenso, visto que, à medida que o número de processos aumentava, seus resultados mantiveram-se consistentemente em segundo lugar, apresentando um tempo médio de retorno de $202.8s$ em seu pior cenário, destacando-se em relação aos dois algoritmos restantes. Isso ocorre em função da característica inerente desse tipo de processo, já que o tamanho do \textit{quantum} não é relevante para a sua execução. Como as tarefas possuem uma alta frequência de E/S, o tempo total passa a depender da espera por essas operações. Sempre que a requisição é concluída, a tarefa é enviada ao final da fila de prontos, o que torna o comportamento do escalonador muito similar ao do FCFS, justificando a semelhança no tempo médio de ambos os algoritmos.
+
+Por outro lado, algoritmos baseados em prioridades dinâmicas mostraram-se menos favoráveis para este tipo exclusivo de carga. O algoritmo MF obteve o tempo de retorno mais lento com 200 processos, marcando 212.3 s. Essa degradação em algoritmos complexos (Padrão e MF) ocorre porque processos de I/O frequentemente bloqueiam e retornam à fila de prontos; a manipulação das múltiplas filas pode introduzir pequenos atrasos em relação a um esquema FIFO simples, onde o processo recém-acordado do I/O entra numa fila plana e, não havendo preempção de tempo no FCFS, rapidamente retoma o processador para emitir seu próximo comando de I/O, otimizando o paralelismo entre dispositivos e CPU. \textcolor{red}{Amanhã, eu, Vinícius Augusto Landim Andrade, vou reestruturar essa parte do texto, pois são 23h42 da noite.}
 
 
 \bibliographystyle{sbc}
