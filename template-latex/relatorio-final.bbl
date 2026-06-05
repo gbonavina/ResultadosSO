@@ -6,9 +6,14 @@
 \newblock \url{https://wiki.minix3.org/}.
 \newblock Accessed: 2026-06-04.
 
-\bibitem[Tanembaum 2016]{tanembaum}
-Tanembaum, A.~S. (2016).
+\bibitem[Tanenbaum 2016]{tanenbaum}
+Tanenbaum, A.~S. (2016).
 \newblock {\em Sistemas Operacionais Modernos}.
 \newblock São Paulo: Pearson Education Brasil, 4th edition.
+
+\bibitem[Tanenbaum and Woodhull 2008]{tanenbaum-MINIX}
+Tanenbaum, A.~S. and Woodhull, A.~S. (2008).
+\newblock {\em Sistemas Operacionais: Projeto e Implementação}.
+\newblock Porto Alegre: Bookman, 3rd edition.
 
 \end{thebibliography}

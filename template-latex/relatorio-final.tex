@@ -45,7 +45,11 @@ Jonas L. Durão\inst{1}, Natália V. A. do Val\inst{1}, Vinicius A. L. Andrade\i
 \end{resumo}
 
 \section{Introdução}
-\textcolor{red}{FALTA ESCREVER}
+
+O MINIX 3 é um sistema operacional de código aberto criado por Andrew S. Tanenbaum. Ele foi projetado para ser confiável e flexível, sendo utilizado para fins didáticos \cite{tanenbaum-MINIX}. Sua arquitetura é baseada em microkernel, na qual apenas as funções mais básicas, como o gerenciamento de interrupções e comunicação entre processos, são executadas no núcleo do sistema. Os demais componentes, como drivers, gerenciamento de arquivos e o escalonador, operam separados do núcleo, como processos independentes no espaço do usuário. Essa separação ajuda a evitar que falhas em um serviço comprometam o sistema inteiro, além de facilitar o estudo e modificação de seu código-fonte.
+
+Este projeto utiliza a versão MINIX 3.4.0rc6 com o objetivo de aplicar na prática os conceitos teóricos da disciplina de Sistemas Operacionais. O trabalho explora o funcionamento interno do sistema por meio de sua instalação em ambiente virtualizado, alteração de chamadas no kernel e, principalmente, através da implementação e análise comparativa de desempenho de diferentes algoritmos de escalonamento de processos sob variadas cargas de trabalho.
+
 \section{Instalação}
 
 A primeira etapa deste projeto consistiu na instalação e configuração inicial do 
