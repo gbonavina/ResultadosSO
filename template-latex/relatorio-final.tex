@@ -142,8 +142,13 @@ Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de 
 Para analisar o comportamento e a eficiência de cada algoritmo sob diferentes perfis de carga, serão conduzidos testes comparativos simulando cenários com processos intensivos em computação (\textit{CPU-bound}) e intensivos em entrada/saída (\textit{I/O-bound}). A avaliação quantitativa será realizada por meio do programa de testes \texttt{teste\_processos.c}, variando-se a carga de trabalho em escalas de 10, 50, 100 e 200 processos simultâneos. 
 Adicionalmente, o sistema será avaliado em diferentes cenários, submetendo os escalonadores à execução de 10 mil processos \textit{I/O-bound} e 1 milhão de processos \textit{CPU-bound}.
 \section{Descrição dos Algortimos de Escalonamento}
-
 \subsection{Algoritmo Padrão do MINIX}
+
+O algoritmo de escalonamento padrão do MINIX 3 utiliza um escalonador preemptivo baseado em múltiplas filas de prioridade com ajuste dinâmico. O sistema gerencia 16 filas (0 a 15), nas quais o nível 0 possui a maior prioridade e o nível 15, a menor. O escalonador sempre seleciona o processo localizado no topo da fila de maior prioridade que não esteja vazia. As filas superiores, de 0 a 6, são destinadas a processos críticos do núcleo e a servidores essenciais do sistema. Já os processos de usuário são alocados entre as filas 7 (\texttt{USER\_Q}) e 14 (\texttt{MIN\_USER\_Q}). A fila 15 (\texttt{IDLE\_Q}), de menor prioridade, é reservada ao processo ocioso do sistema, executada apenas quando não há nenhuma outra instrução pendente no processador.
+
+Devido à arquitetura de microkernel do MINIX 3, o escalonamento ocorre tanto no espaço de núcleo quanto no espaço de usuário. No espaço de núcleo, implementado principalmente em \texttt{/minix/kernel/proc.c}, encontram-se os mecanismos de baixo nível, fornecendo as operações \texttt{enqueue()} e \texttt{dequeue()}, responsáveis pela manipulação das estruturas de dados, além da função \texttt{pick\_proc()}, responsável por selecionar o próximo processo a receber a CPU com base na prioridade estrita.
+
+Por outro lado, a política de escalonamento é implementada no espaço de usuário, no diretório \texttt{/minix/servers/sched/}, com destaque para o arquivo \texttt{schedule.c}, onde o servidor de escalonamento \texttt{sched} gerencia o tempo de execução dos processos. Internamente, cada fila utiliza o algoritmo Round-Robin, no qual cada processo recebe uma fatia limitada de tempo de CPU (\textit{quantum}). O servidor \texttt{sched} reduz a prioridade de processos pesados (\textit{CPU-bound}) que esgotam seu \textit{quantum} e promove processos interativos (\textit{I/O-bound}) por meio do mecanismo de \textit{aging}, implementado na função \texttt{balance\_queues()}, garantindo maior responsividade e evitando inanição.
 
 \subsection{Round-Robin (RR)}
 O algoritmo de escalonamento por chaveamento circular (ou \textit{Round-Robin}), é um dos algoritmos 
