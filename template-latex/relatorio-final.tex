@@ -27,22 +27,25 @@ Jonas L. Durão\inst{1}, Natália V. A. do Val\inst{1}, Vinicius A. L. Andrade\i
 \maketitle
 
 \begin{abstract}
-  \textcolor{red}{This meta-paper describes the style to be used in articles and short papers
-  for SBC conferences. For papers in English, you should add just an abstract
-  while for the papers in Portuguese, we also ask for an abstract in
-  Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.}
+  Building on the knowledge acquired during the Operating Systems (OS) course, this project
+  aims to deepen practical understanding of the scheduling algorithms discussed in class,
+  from installing MINIX 3.4.0rc6 to modifying the scheduling algorithms themselves. First,
+  we will describe the system installation process and simple modifications that helped us
+  better understand the OS structure. Next, we will modify the MINIX source code to implement
+  the scheduling algorithms discussed in class and evaluate the performance of each one.
+  Finally, we will discuss the results obtained and the project's conclusions.
 \end{abstract}
      
 \begin{resumo} 
-  \textcolor{red}{Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
-  resumos de artigos para publicação nos anais das conferências organizadas
-  pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
-  escritos em português. Artigos em inglês deverão apresentar apenas abstract.
-  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
-  não ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
-  página do artigo.}
+  Permeados pelo conhecimento adquirido durante a disciplina de Sistemas Operacionais (SO), este projeto
+  tem como objetivo aprofundar o conhecimento prático sobre algoritmos de escalonamento discutidos em sala, 
+  desde a instalação do MINIX 3.4.0rc6, até a modificação dos algoritmos de escalonamento propriamente. Primeiramente,
+  detalharemos o processo de instalação do sistema e modificações simples que nos permitiram compreender mais sobre a estrutura do SO.
+  Em seguida, realizaremos modificações no código-fonte do MINIX para implementar os algoritmos de escalonamento discutidos em sala,
+  e avaliaremos o desempenho de cada um deles. Por fim, discutiremos os resultados obtidos e as conclusões do projeto.
 \end{resumo}
+
+O código-fonte completo deste projeto pode ser encontrado no repositório do Github: \url{https://github.com/brenonak/minix}
 
 \section{Introdução}
 
@@ -80,7 +83,11 @@ MAC de placas em rede NAT.
 Além disso, foi necessário fazer o \textit{clone} do repositório no ambiente virtual, 
 para que fosse possível fazer as modificações que serão detalhadas em seções futuras deste
 relatório. Para isso, foi necessário configurar um Token de Acesso Pessoal do Github,
-o que nos permitiu executar os comandos do \textit{git} no ambiente virtual.
+o que nos permitiu executar os comandos do \textit{git} no ambiente virtual. Encontramos dificuldades nessa parte,
+já que no ambiente virtual não é possível utilizar os comandos de cópia e colagem. Para contornar esse problema,
+criamos um arquivo \texttt{clonar.sh} e um arquivo \texttt{meu\_token.txt}, que contém o token de acesso pessoal do Github, e,
+ao rodar o arquivo \texttt{clonar.sh}, o repositório é clonado no ambiente virtual. Optamos por esta abordagem pois é 
+uma forma de garantir que o token do Github esteja correto no momento da execução do script.
 
 Por fim, faz-se necessário ressaltar as configurações de hardware da máquina virtual. Para a execução deste projeto
 utilizamos uma máquina virtual com 1 \textit{core} de processador, 1GB de memória RAM e 4GB de HD dinâmicamente alocado.
@@ -135,6 +142,8 @@ para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa
   \caption{Resultado da modificação do \texttt{exec.c}.}
   \label{fig:exec_ls}
 \end{figure}
+
+Por fim, é válido destacar que todas os caminhos de arquivos modificados durante esta fase do projeto foram encontrados por meio da documentação oficial do MINIX \cite{minix3wiki}.
 
 \section{Descrição do Exercício Proposto}
 Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de escalonamento no sistema operacional MINIX 3.4.0rc6. A metodologia consiste na análise teórica e na modificação do código-fonte do sistema para implementar três políticas de escalonamento distintas, além da abordagem padrão do MINIX. Para isso, foram implementados os algoritmos: Round-Robin, Múltiplas Filas com \textit{Quantum} Exponencial e \textit{First-Come, First-Served} (FCFS).
@@ -237,6 +246,21 @@ Por outro lado, algoritmos baseados em prioridades dinâmicas mostraram-se menos
 
 O mesmo princípio se aplica ao algoritmo padrão do MINIX. Como o rebaixamento nesse escalonador depende do esgotamento de um quantum fixo, os processos limitados por I/O, que costumam bloquear voluntariamente antes desse limite, são rebaixados com menos frequência. Como resultado, em cenários de alta concorrência, a grande maioria desses processos pode se concentrar em uma mesma fila de alta prioridade. Isso gera um congestionamento, elevando consideravelmente os tempos de espera devido à longa fila de tarefas que, ao serem recém-acordadas, retornam ao final da fila.
 
+\section{Conclusão}
+Este projeto teve como objetivo principal analisar os diferentes comportamentos de algoritmos clássicos de escalonamento e compará-los 
+com o algoritmo padrão do MINIX. Através da coleta e análise dos tempos médios de execução e do desvio-padrão para processos CPU-bound e IO-bound,
+em diferentes quantidades de processos, foi possível completar nosso objetivo de analisar como as características de cada método afetam no desempenho da CPU.
+
+O algoritmo padrão do MINIX 3, por exemplo, mesmo possuindo tempos médios de execução maiores que de outros métodos em certas situações, 
+em algumas execuções ele foi capaz de atingir tempos médios muito menores que seus pares, demonstrando a capacidade do algoritmo padrão do SO. Para o 
+FCFS, foi possível obter resultados satisfatórios, porém, em alguns experimentos, foi possível verificar um alto desvio-padrão, indicando que o algoritmo é bem instável 
+quando comparado ao resto. O Round-Robin com quantum variável foi o pior desempenho deste experimento, principalmente em casos com muitos processos, já que, por conta da grande divisão do quantum,
+há uma quantidade excessiva de trocas de contexto. Por fim, o múltiplas filas com quantum exponencial teve resultados mistos, sendo capaz de desempenhar bem em processos CPU-bound, mas 
+em casos de processos IO-bound, possuiu as piores performances.
+
+Concluimos, portanto, que o algoritmo padrão do MINIX ainda se mostra como uma alternativa adequada para um sistema operacional que deve ser escalável, já que 
+ele foi capaz de performar de maneira satisfatória em grande parte dos casos em que testamos, diferentemente dos outros métodos, sendo capaz, até, de superá-los 
+em algumas execuções. 
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
