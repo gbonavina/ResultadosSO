@@ -78,7 +78,7 @@ Além da instalação do MINIX, também foi necessário fazer a configuração d
 MAC de placas em rede NAT.
 
 Além disso, foi necessário fazer o \textit{clone} do repositório no ambiente virtual, 
-para que possamos fazer as modificações que serão detalhadas em seções futuras deste
+para que fosse possível fazer as modificações que serão detalhadas em seções futuras deste
 relatório. Para isso, foi necessário configurar um Token de Acesso Pessoal do Github,
 o que nos permitiu executar os comandos do \textit{git} no ambiente virtual.
 
@@ -110,7 +110,7 @@ Os resultados podem ser encontrados nas Figuras \ref{fig:banner1} e \ref{fig:ban
 
 Por fim, para a modificação do banner de \textit{login}, foi necessário navegar pelos diretórios
 \texttt{minix/etc/motd}, onde inserimos o banner indicado pelo enunciado. O resultado da modificação
-pode ser encontrado na Figura \ref{fig:banner2}
+pode ser encontrado na Figura \ref{fig:banner2}.
 
 \begin{figure}[H]
   \centering
@@ -132,23 +132,23 @@ para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{imgs/execls.jpeg}
-  \caption{Resultado da modificação do \texttt{exec.c}}
+  \caption{Resultado da modificação do \texttt{exec.c}.}
   \label{fig:exec_ls}
 \end{figure}
 
 \section{Descrição do Exercício Proposto}
 Este projeto tem como objetivo avaliar o desempenho de diferentes algoritmos de escalonamento no sistema operacional MINIX 3.4.0rc6. A metodologia consiste na análise teórica e na modificação do código-fonte do sistema para implementar três políticas de escalonamento distintas, além da abordagem padrão do MINIX. Para isso, foram implementados os algoritmos: Round-Robin, Múltiplas Filas com \textit{Quantum} Exponencial e \textit{First-Come, First-Served} (FCFS).
 
-Para analisar o comportamento e a eficiência de cada algoritmo sob diferentes perfis de carga, serão conduzidos testes comparativos simulando cenários com processos intensivos em computação (\textit{CPU-bound}) e intensivos em entrada/saída (\textit{I/O-bound}). A avaliação quantitativa será realizada por meio do programa de testes \texttt{teste\_processos.c}, variando-se a carga de trabalho em escalas de 10, 50, 100 e 200 processos simultâneos. 
+Para analisar o comportamento e a eficiência de cada algoritmo sob diferentes perfis de carga, foram conduzidos testes comparativos simulando cenários com processos intensivos em computação (\textit{CPU-bound}) e intensivos em entrada/saída (\textit{I/O-bound}). A avaliação quantitativa será realizada por meio do programa de testes \texttt{teste\_processos.c}, variando-se a carga de trabalho em escalas de 10, 50, 100 e 200 processos simultâneos. 
 Adicionalmente, o sistema será avaliado em diferentes cenários, submetendo os escalonadores à execução de 10 mil processos \textit{I/O-bound} e 1 milhão de processos \textit{CPU-bound}.
-\section{Descrição dos Algortimos de Escalonamento}
+\section{Descrição dos Algoritmos de Escalonamento}
 \subsection{Algoritmo Padrão do MINIX}
 
-O algoritmo de escalonamento padrão do MINIX 3 utiliza um escalonador preemptivo baseado em múltiplas filas de prioridade com ajuste dinâmico. O sistema gerencia 16 filas (0 a 15), nas quais o nível 0 possui a maior prioridade e o nível 15, a menor. O escalonador sempre seleciona o processo localizado no topo da fila de maior prioridade que não esteja vazia. As filas superiores, de 0 a 6, são destinadas a processos críticos do núcleo e a servidores essenciais do sistema. Já os processos de usuário são alocados entre as filas 7 (\texttt{USER\_Q}) e 14 (\texttt{MIN\_USER\_Q}). A fila 15 (\texttt{IDLE\_Q}), de menor prioridade, é reservada ao processo ocioso do sistema, executada apenas quando não há nenhuma outra instrução pendente no processador.
+O algoritmo de escalonamento padrão do MINIX 3 utiliza um escalonador preemptivo baseado em múltiplas filas de prioridade com ajuste dinâmico. O sistema gerencia 16 filas (0 a 15), nas quais o nível 0 possui a maior prioridade e o nível 15, a menor. O escalonador sempre seleciona o processo localizado no topo da fila de maior prioridade que não esteja vazia. As filas superiores, de 0 a 6, são destinadas a processos críticos do núcleo e a servidores essenciais do sistema. Já os processos de usuário são alocados entre as filas 7 (\texttt{USER\_Q}) e 14 (\texttt{MIN\_USER\_Q}). A fila 15 (\texttt{IDLE\_Q}), de menor prioridade, é reservada ao processo ocioso do sistema, executado apenas quando não há nenhuma outra instrução pendente no processador.
 
 Devido à arquitetura de microkernel do MINIX 3, o escalonamento ocorre tanto no espaço de núcleo quanto no espaço de usuário. No espaço de núcleo, implementado principalmente em \texttt{/minix/kernel/proc.c}, encontram-se os mecanismos de baixo nível, fornecendo as operações \texttt{enqueue()} e \texttt{dequeue()}, responsáveis pela manipulação das estruturas de dados, além da função \texttt{pick\_proc()}, responsável por selecionar o próximo processo a receber a CPU com base na prioridade estrita.
 
-Por outro lado, a política de escalonamento é implementada no espaço de usuário, no diretório \texttt{/minix/servers/sched/}, com destaque para o arquivo \texttt{schedule.c}, onde o servidor de escalonamento \texttt{sched} gerencia o tempo de execução dos processos. Internamente, cada fila utiliza o algoritmo Round-Robin, no qual cada processo recebe uma fatia limitada de tempo de CPU (\textit{quantum}). O servidor \texttt{sched} reduz a prioridade de processos pesados (\textit{CPU-bound}) que esgotam seu \textit{quantum} e promove processos interativos (\textit{I/O-bound}) por meio do mecanismo de \textit{aging}, implementado na função \texttt{balance\_queues()}, garantindo maior responsividade e evitando inanição.
+Por outro lado, a política de escalonamento é implementada no espaço de usuário no diretório \texttt{/minix/servers/sched/}, com destaque para o arquivo \texttt{schedule.c}, onde o servidor de escalonamento \texttt{sched} gerencia o tempo de execução dos processos. Internamente, cada fila utiliza o algoritmo Round-Robin, no qual cada processo recebe uma fatia limitada de tempo de CPU (\textit{quantum}). O servidor \texttt{sched} reduz a prioridade de processos pesados (\textit{CPU-bound}) que esgotam seu \textit{quantum} e promove processos interativos (\textit{I/O-bound}) por meio do mecanismo de \textit{aging}, implementado na função \texttt{balance\_queues()}, garantindo maior responsividade e evitando inanição.
 
 \subsection{Round-Robin (RR)}
 O algoritmo de escalonamento por chaveamento circular (ou \textit{Round-Robin}), é um dos algoritmos 
@@ -176,6 +176,8 @@ Para assegurar o comportamento definido no projeto, o rebalanceamento das filas 
 
 \subsection{\textit{First-Come, First-Served} (FCFS)}
 
+
+
 \section{Resultados Obtidos e Discussão}
 Para garantir a robustez estatística de nossos resultados, realizaram-se 5 execuções para cada algoritmo, e calcularem-se a média e o desvio-padrão de cada um deles. Ao final
 das execuções, foi desenvolvido um gráfico de barras para cada classe de processos, no qual o eixo X representa o número de processos e o eixo Y representa o tempo de execução médio. Esses resultados são apresentados na Figura \ref{fig:results_cpu_bound} e na Figura \ref{fig:results_io_bound}. Neles são apresentados em azul o algoritmo padrão do MINIX, em amarelo o FCFS, em verde o \textit{Round-Robin} (RR) e em vermelho o Múltiplas Filas com \textit{Quantum} Exponencial (MF).
@@ -188,7 +190,7 @@ A configuração do computador utilizado foi um processador 12th Gen Intel(R) Co
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{imgs/results_cpu_bound.jpeg}
-  \caption{Resultados obtidos para processos \textit{CPU-bound}}
+  \caption{Resultados obtidos para processos \textit{CPU-bound}.}
   \label{fig:results_cpu_bound}
 \end{figure}  
 
@@ -198,7 +200,7 @@ Partindo pela análise dos resultados para os processos \textit{CPU-bound}, apre
 
 Avaliando cada teste individualmente, foi possível verificar que, com uma carga base de 10 processos, o tempo de retorno registrado é de 0.0 ms para todos os algoritmos. É importante destacar que esse valor não indica um tempo de execução nulo, mas sim que a duração foi tão curta que ficou abaixo do limite de resolução rastreável pelo mecanismo de medição do sistema. Ou seja, o sistema executou todos os processos dessa categoria sem nenhuma dificuldade, com todos os algoritmos sendo capazes de concluir as tarefas de forma quase instantânea.
 
-As divergências entre os algoritmos passaram a ser nítidas na medida em que se aumentou a carga de processos. Para 50 processos, o algoritmo MF se destaca com o menor tempo médio de retorno, obtendo o valor de 1.1 ms de tempo de retorno médio. O seu funcionamento pode explicar esse comportamento. Nesse algoritmo, para processos \textit{CPU-bound}, ocorre um escalonamento sem pausas de execução, de modo que os \textit{quanta} dos processos serão estourados, resultando na preempção com o rebaixamento de fila. 
+As divergências entre os algoritmos passaram a ser nítidas na medida em que se aumentou a carga de processos. Para 50 processos, o algoritmo MF se destaca com o menor tempo médio de retorno, obtendo o valor de 1.1 ms. O seu funcionamento pode explicar esse comportamento. Nesse algoritmo, para processos \textit{CPU-bound}, ocorre um escalonamento sem pausas de execução, de modo que os \textit{quanta} dos processos serão estourados, resultando na preempção com o rebaixamento de fila. 
 
 Sendo assim, para 50 processos, observou-se que a sobrecarga inicial, que ocorre em função das trocas de contexto nas filas superiores devido ao \textit{quantum} pequeno, foram compensadas pela acomodação desses processos em filas mais baixas. Dessa forma, as tarefas de uso intensivo de CPU puderam ser executadas por fatias de tempo maiores sem novas trocas de contexto, finalizando a execução de maneira muito mais rápida.
 
