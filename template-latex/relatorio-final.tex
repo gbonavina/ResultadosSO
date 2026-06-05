@@ -242,6 +242,21 @@ Por outro lado, algoritmos baseados em prioridades dinâmicas mostraram-se menos
 
 O mesmo princípio se aplica ao algoritmo padrão do MINIX. Como o rebaixamento nesse escalonador depende do esgotamento de um quantum fixo, os processos limitados por I/O, que costumam bloquear voluntariamente antes desse limite, são rebaixados com menos frequência. Como resultado, em cenários de alta concorrência, a grande maioria desses processos pode se concentrar em uma mesma fila de alta prioridade. Isso gera um congestionamento, elevando consideravelmente os tempos de espera devido à longa fila de tarefas que, ao serem recém-acordadas, retornam ao final da fila.
 
+\section{Conclusão}
+Este projeto teve como objetivo principal analisar os diferentes comportamentos de algoritmos clássicos de escalonamento e compará-los 
+com o algoritmo padrão do MINIX. Através da coleta e análise dos tempos médios de execução e do desvio-padrão para processos CPU-bound e IO-bound,
+em diferentes quantidades de processos, foi possível completar nosso objetivo de analisar como as características de cada método afetam no desempenho da CPU.
+
+O algoritmo padrão do MINIX 3, por exemplo, mesmo possuindo tempos médios de execução maiores que de outros métodos em certas situações, 
+em algumas execuções ele foi capaz de atingir tempos médios muito menores que seus pares, demonstrando a capacidade do algoritmo padrão do SO. Para o 
+FCFS, foi possível obter resultados satisfatórios, porém, em alguns experimentos, foi possível verificar um alto desvio-padrão, indicando que o algoritmo é bem instável 
+quando comparado ao resto. O Round-Robin com quantum variável foi o pior desempenho deste experimento, principalmente em casos com muitos processos, já que, por conta da grande divisão do quantum,
+há uma quantidade excessiva de trocas de contexto. Por fim, o múltiplas filas com quantum exponencial teve resultados mistos, sendo capaz de desempenhar bem em processos CPU-bound, mas 
+em casos de processos IO-bound, possuiu as piores performances.
+
+Concluimos, portanto, que o algoritmo padrão do MINIX ainda se mostra como uma alternativa adequada para um sistema operacional que deve ser escalável, já que 
+ele foi capaz de performar de maneira satisfatória em grande parte dos casos em que testamos, diferentemente dos outros métodos, sendo capaz, até, de superá-los 
+em algumas execuções. 
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
