@@ -49,6 +49,8 @@ MINIX na máquina virtual. Para isso, foi necessário seguir o manual de instru�
 apresentado no enunciado. Imagens da instalação podem ser encontradas nas Figuras
 \ref{fig:print_install1} e \ref{fig:print_install2}.
 
+\vspace{-10pt}
+
 \begin{figure}[H]
   \centering
   \begin{minipage}{0.48\linewidth}
@@ -65,17 +67,20 @@ apresentado no enunciado. Imagens da instalação podem ser encontradas nas Figu
   \end{minipage}
 \end{figure}
 
+\vspace{-10pt}
+
+
 Além da instalação do MINIX, também foi necessário fazer a configuração de rede no 
 \textit{Virtual Box}, ajustando a política de endereçamento MAC para incluir apenas os endereços
 MAC de placas em rede NAT.
 
 Além disso, foi necessário fazer o \textit{clone} do repositório no ambiente virtual, 
-para que fosse possível fazer as modificações que serão detalhadas em seções futuras deste
+para realizar as modificações que serão detalhadas em seções futuras deste
 relatório. Para isso, foi necessário configurar um Token de Acesso Pessoal do Github,
 o que nos permitiu executar os comandos do \textit{git} no ambiente virtual. Encontramos dificuldades nessa parte,
 já que no ambiente virtual não é possível utilizar os comandos de cópia e colagem. Para contornar esse problema,
 criamos um arquivo \texttt{clonar.sh} e um arquivo \texttt{meu\_token.txt}, que contém o token de acesso pessoal do Github, e,
-ao rodar o arquivo \texttt{clonar.sh}, o repositório é clonado no ambiente virtual. Optamos por esta abordagem pois é 
+ao rodar \texttt{clonar.sh}, o repositório é clonado no ambiente virtual. Optamos por esta abordagem pois é 
 uma forma de garantir que o token do Github esteja correto no momento da execução do script.
 
 Por fim, faz-se necessário ressaltar as configurações de hardware da máquina virtual. Para a execução deste projeto
@@ -87,6 +92,8 @@ Para a mudança no banner durante \textit{boot} e \textit{poweroff}, foi necess�
 Na função \texttt{announce()}, foram acrescentados \textit{prints} para reproduzir o banner indicado no enunciado. Além disso, na função
 \texttt{prepare\_shutdown()}, também inserimos \textit{prints} para a impressão do banner.
 Os resultados podem ser encontrados nas Figuras \ref{fig:banner1} e \ref{fig:banner3}.
+
+\vspace{-10pt}
 
 \begin{figure}[H]
   \centering
@@ -104,9 +111,12 @@ Os resultados podem ser encontrados nas Figuras \ref{fig:banner1} e \ref{fig:ban
   \end{minipage}
 \end{figure}
 
+\vspace{-10pt}
 Por fim, para a modificação do banner de \textit{login}, foi necessário navegar pelos diretórios
 \texttt{minix/etc/motd}, onde inserimos o banner indicado pelo enunciado. O resultado da modificação
 pode ser encontrado na Figura \ref{fig:banner2}.
+
+\vspace{-10pt}
 
 \begin{figure}[H]
   \centering
@@ -114,7 +124,7 @@ pode ser encontrado na Figura \ref{fig:banner2}.
   \caption{Resultado do banner de \textit{login}.}
   \label{fig:banner2}
 \end{figure}
-
+\vspace{-10pt}
 
 \section{Mudança \texttt{exec.c}}
 
@@ -125,6 +135,7 @@ Inicialmente, adicionou-se o campo \texttt{execpath} à estrutura compartilhada 
 A exibição da mensagem foi centralizada no PM (\texttt{pm/exec.c}). Na rotina \texttt{do\_newexec}, os dados preenchidos pelo VFS são recebidos via \texttt{sys\_datacopy}. Após a cópia dos argumentos para a memória do PM, inseriu-se um \texttt{printf} 
 para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa modificação pode ser encontrado na Figura \ref{fig:exec_ls}.
 
+\vspace{-10pt}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\linewidth]{imgs/execls.jpeg}
@@ -132,10 +143,11 @@ para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa
   \label{fig:exec_ls}
 \end{figure}
 
+\vspace{-10pt}
 Por fim, é válido destacar que todas os caminhos de arquivos modificados durante esta fase do projeto foram encontrados por meio da documentação oficial do MINIX \cite{minix3wiki}.
 
 \section{Descrição do Exercício Proposto}
-Este projeto avalia o desempenho de diferentes algoritmos de escalonamento no MINIX 3.4.0rc6. Além do algoritmo padrão, o código-fonte do sistema foi modificado para implementar três escalonadores diferentes: \textit{Round-Robin}, Múltiplas Filas com \textit{Quantum} Exponencial e \textit{First-Come, First-Served} (FCFS). A eficiência de cada escalonador foi testada sob perfis \textit{CPU-bound}, com cargas de 1 milhão de operações por processo, e perfis \textit{I/O-bound}, com 10 mil operações. A avaliação desenvolvida utilizou o programa \texttt{teste\_processos.c}, submetendo o sistema a escalas de 10, 50, 100 e 200 processos simultâneos.
+Este projeto avalia o desempenho de diferentes algoritmos de escalonamento no MINIX 3.4.0rc6. Além do algoritmo padrão, o código-fonte do sistema foi modificado para implementar três escalonadores diferentes: \textit{Round-Robin}, Múltiplas Filas com \textit{Quantum} Exponencial e \textit{First-Come, First-Served}. A eficiência de cada escalonador foi testada sob perfis \textit{CPU-bound}, com cargas de 1 milhão de operações por processo, e \textit{I/O-bound}, com 10 mil operações. A avaliação desenvolvida utilizou o programa \texttt{teste\_processos.c}, submetendo o sistema a escalas de 10, 50, 100 e 200 processos simultâneos.
 
 \section{Descrição dos Algoritmos de Escalonamento}
 
@@ -186,57 +198,54 @@ Também é válido ressaltar que todos os testes de desempenho foram executados 
 A configuração do computador utilizado foi um processador 12th Gen Intel(R) Core(TM) i5-12500H com 16GB de RAM, com o Windows 11 instalado. Por fim, a versão da Oracle VirtualBox é a 7.2.6.
 
 \subsection{Resultados para testes de processos \textit{CPU-bound}}
-
+\vspace{-10pt}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{imgs/results_cpu_bound.jpeg}
   \caption{Resultados obtidos para processos \textit{CPU-bound}.}
   \label{fig:results_cpu_bound}
 \end{figure}  
+\vspace{-10pt}
 
-
-Partindo pela análise dos resultados para os processos \textit{CPU-bound}, apresentado na Figura \ref{fig:results_cpu_bound}, observa-se, de maneira geral, que o \textit{Round-Robin} teve o pior desempenho dentre todos os métodos de escalonamento a partir dos testes com 50 processos. Partindo pela análise dos resultados para os processos CPU-bound, apresentados na Figura 7, observa-se, de maneira geral, que o algoritmo Round-Robin (RR) teve o pior desempenho dentre todos os métodos a partir dos testes com 50 processos. Isso ocorre porque o RR força a preempção baseada puramente no tempo (quantum). Como os processos CPU-bound realizam cálculos contínuos, eles sempre esgotam seu quantum antes de terminarem a tarefa, forçando o sistema operacional a realizar um número excessivo de trocas de contexto. Essa sobrecarga de salvar e restaurar o estado dos processos repetidas vezes eleva o tempo total de execução.
+Partindo pela análise dos resultados para os processos \textit{CPU-bound} (Figura \ref{fig:results_cpu_bound}), observa-se que o algoritmo \textit{Round-Robin} (RR) teve o pior desempenho dentre todos os métodos a partir dos testes com 50 processos. Isso ocorre porque o RR força a preempção baseada puramente no tempo (\textit{quantum}). Como os processos \textit{CPU-bound} realizam cálculos contínuos, eles esgotam seu \textit{quantum} antes de terminarem a tarefa, forçando o sistema operacional a realizar um número excessivo de trocas de contexto. Essa sobrecarga de salvar e restaurar o estado dos processos repetidas vezes eleva o tempo total de execução.
 
 
 Avaliando cada teste individualmente, verifica-se que, com uma carga base de 10 processos, o tempo de retorno registrado é de 0.0 ms para todos os algoritmos. É importante destacar que esse valor não indica um tempo de execução nulo, mas sim que a duração foi tão curta que ficou abaixo do limite de resolução rastreável pelo mecanismo de medição do sistema. Todos os algoritmos foram capazes de concluir as tarefas de forma quase instantânea.
 
 As divergências entre as políticas passaram a ser nítidas à medida que a carga aumentou. Para 50 processos, o algoritmo MF destaca-se com o menor tempo médio de retorno (1.1 ms). Nesse algoritmo, os processos \textit{CPU-bound} que esgotam o \textit{quantum} são rebaixados de fila, mas ganham fatias de tempo exponencialmente maiores. Assim, para 50 processos, a sobrecarga inicial de trocas de contexto nas filas superiores é compensada pela acomodação desses processos em filas mais baixas. Dessa forma, tarefas de uso intensivo de CPU puderam ser executadas por fatias de tempo maiores sem novas trocas de contexto, finalizando a execução de maneira muito mais rápida.
 
-Por outro lado, em cenários de alta concorrência (100 e 200 processos), o MF perde eficiência, ficando à frente apenas do RR, em razão do grande volume de trocas de contexto exigido inicialmente. Esse \textit{overhead} inicial maior não conseguiu ser compensado pela estabilidade posterior nas filas inferiores. Além disso, as últimas filas, que executam processos únicos por longos períodos, são suscetíveis a acumular uma extensa sequência de processos no estado de pronto, gerando longos tempos de espera e o risco de \textit{starvation}. 
+Por outro lado, em cenários de alta concorrência (100 e 200 processos), o MF perde eficiência, ficando à frente apenas do RR, em razão do grande volume de trocas de contexto exigido inicialmente. Esse \textit{overhead} inicial maior não conseguiu ser compensado pela estabilidade nas filas inferiores. Além disso, as últimas filas, que executam processos únicos por longos períodos, são suscetíveis a acumular uma extensa sequência de processos no estado de pronto, gerando longos tempos de espera e o risco de \textit{starvation}. 
 
 Nesses cenários extremos, os algoritmos FCFS e o Padrão do MINIX demonstram a melhor escalabilidade. No teste mais crítico, com 200 processos, o FCFS obtém a melhor marca com 10.0 ms, empatado tecnicamente com o escalonador Padrão (10.2 ms), considerando a margem de erro. O desempenho superior do FCFS nestas condições justifica-se teoricamente pela sua natureza não preemptiva: ao ganhar a CPU, um processo limitado por processamento executa suas operações matemáticas até o fim, sem interrupções forçadas pelo timer do sistema. Isso elimina o overhead gerado por trocas de contexto, permitindo que a CPU dedique 100\% dos seus ciclos à execução útil do teste.
 
-
-Em contrapartida, o algoritmo Round Robin (RR) sofre o maior impacto sob carga pesada, atingindo a pior média (12.1 ms) e exibindo a maior variância (desvio-padrão) entre as rodadas. Oposto ao cenário do FCFS, essa degradação ocorre justamente pelo excesso de trocas de contexto. Devido ao número de processos na fila, pois o \textit{quantum} com fração justa será muito menor ($\frac{1000}{200} = 5\,ms$), resultando em um processo que em execução ficará pouco tempo na CPU, sendo necessário muitas trocas de contexto.
+Em contrapartida, o algoritmo \textit{Round-Robin} (RR) sofre o maior impacto sob carga pesada, atingindo a pior média (12.1 ms) e exibindo a maior variância (desvio-padrão) entre as rodadas. Oposto ao cenário do FCFS, essa degradação ocorre justamente pelo excesso de trocas de contexto. Devido ao alto número de processos na fila, a fração justa de \textit{quantum} torna-se muito pequena ($\frac{1000}{200} = 5\,ms$), fazendo com que o processo permaneça pouco tempo na CPU antes de sofrer preempção.
 
 Por fim, um ponto válido a ser levantado acerca da Figura \ref{fig:results_cpu_bound} é o comportamento do algoritmo padrão do MINIX no cenário extremo de 200 processos. Embora apresente a segunda melhor média (10.2 ms), sua barra de desvio-padrão indica que, em algumas execuções, ele foi capaz de atingir performances na casa dos 9.0 ms, superando o FCFS. Isso demonstra que as otimizações internas do escalonador dinâmico do MINIX podem, em rodadas específicas, favorecer a execução em lote. Contudo, ao analisar a sobreposição das margens de erro, conclui-se que o FCFS e o algoritmo Padrão possuem um empate técnico nesse cenário, com a ressalva de que o FCFS entrega maior estabilidade e previsibilidade (menor variância) devido à ausência das interrupções de prioridade.
 
 \subsection{Resultados para testes de processos \textit{IO-bound}}
 
+\vspace{-10pt}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{imgs/results_io_bound.jpeg}
   \caption{Resultados obtidos para processos \textit{IO-bound}}
   \label{fig:results_io_bound}
 \end{figure}  
+\vspace{-10pt}
+A análise da Figura \ref{fig:results_io_bound} revela tempos na ordem de segundos, refletindo a natureza da carga \textit{IO-bound}, que passa a maior parte do tempo bloqueada aguardando a conclusão de operações de E/S. Diferente do cenário \textit{CPU-bound}, o desvio-padrão foi muito mais uniforme: as barras de erro extremamente curtas indicam um comportamento dos escalonadores previsível e consistente entre as rodadas.
 
+Avaliando os algoritmos, o FCFS apresentou a melhor performance em todas as faixas, com tempo médio variando de $10.0s$ (10 processos) até $199.0s$ (200 processos). Embora seja considerado um algoritmo teoricamente ineficiente, esse resultado deve-se à eliminação da sobrecarga (\textit{overhead}). Neste cenário, o Efeito Comboio não ocorre, pois todos os processos realizam \textit{I/O} e bloqueiam rapidamente. Ao remover os cálculos de envelhecimento e o trânsito dinâmico entre as 16 filas, o sistema apenas reinsere o processo no final da fila única, poupando ciclos do microkernel.
 
-A análise dos processos \textit{IO-bound}, apresentada na Figura \ref{fig:results_io_bound}, revela tempos médios de retorno na ordem dos segundos. Isso reflete a natureza deste perfil de carga, que passa a maior parte de sua vida útil bloqueado, aguardando a conclusão de operações de entrada e saída.
+Seguido do FCFS, o Round-Robin (RR) apresentou o segundo melhor desempenho ($202.8s$ no pior cenário). O tamanho do \textit{quantum} tem pouco impacto neste caso, pois os processos bloqueiam por E/S antes de esgotarem suas fatias de tempo. Quando o processo fica pronto novamente, ele é enviado ao final da fila, tornando seu fluxo muito semelhante ao do FCFS, diferindo apenas pelo leve \textit{overhead} de monitoramento do \textit{timer}.
 
-De imediato, observa-se que o comportamento e o desvio-padrão dos algoritmos foram muito mais uniformes se comparados aos resultados \textit{CPU-bound}. Apesar da magnitude em segundos, as barras de erro são extremamente curtas, indicando que o comportamento dos escalonadores para E/S é altamente previsível e consistente entre as rodadas.
-
-Avaliando os algoritmos, é notável que o FCFS apresentou a melhor performance em todas as faixas de teste, com seu tempo médio variando de $10.0s$ (10 processos) até $199.0s$ (200 processos). Embora seja considerado um algoritmo teoricamente ineficiente, o comportamento observado é explicado pela eliminação da sobrecarga (\textit{overhead}) do sistema operacional. Neste cenário, o Efeito Comboio não ocorre, pois todos os processos realizam \textit{I/O} e bloqueiam voluntariamente de forma rápida. Ao remover os cálculos de envelhecimento e o trânsito dinâmico entre as 16 filas, o sistema apenas retira o processo da fila única e o devolve ao final dela após o \textit{I/O}, poupando ciclos do microkernel.
-
-Seguido do FCFS, o Round-Robin (RR) apresentou o segundo melhor desempenho geral para \textit{I/O} intenso ($202.8s$ no pior cenário). O tamanho do \textit{quantum} tem pouco impacto neste caso, pois os processos bloqueiam por E/S antes de esgotarem suas fatias de tempo. Quando o processo fica pronto novamente, ele é enviado ao final da fila, tornando seu fluxo muito semelhante ao do FCFS, diferindo apenas pelo leve \textit{overhead} de monitoramento do \textit{timer} que o RR ainda mantém.
-
-Por outro lado, algoritmos baseados em prioridades dinâmicas (Padrão do MINIX e MF) mostraram-se menos favoráveis para este perfil de carga. O algoritmo MF registrou o pior tempo ($212.3s$) com 200 processos. Projetado para beneficiar processos que usam muita CPU através do aumento do \textit{quantum}, o MF não oferece vantagem para processos que bloqueiam constantemente. Na prática, a manipulação das múltiplas filas e as checagens constantes de prioridade provocam atrasos. O mesmo princípio se aplica ao algoritmo padrão do MINIX ($209.9s$), onde processos limitados por \textit{I/O} são rebaixados com menos frequência e acabam congestionando as filas de alta prioridade, gerando um excesso de cálculos para o servidor de escalonamento tentar balancear uma carga que, fundamentalmente, só precisa aguardar a resposta dos periféricos.
+Por outro lado, algoritmos de prioridades dinâmicas (padrão do MINIX e MF) mostraram-se menos favoráveis para este perfil de carga. O MF registrou o pior tempo ($212.3s$) com 200 processos. Projetado para beneficiar processos que usam muita CPU através do aumento do \textit{quantum}, o MF não beneficia processos que bloqueiam constantemente, e a manipulação das filas provoca atrasos. O mesmo princípio se aplica ao algoritmo padrão do MINIX ($209.9s$), onde processos limitados por \textit{I/O} são rebaixados com menos frequência e acabam congestionando as filas de alta prioridade, gerando excesso de cálculos para balancear uma carga que apenas aguarda os periféricos.
 
 Conclui-se que a aproximação dos tempos de retorno observada entre as diferentes abordagens ocorre porque, em cenários limitados por E/S, o peso de processamento do escalonador perde relevância. Nesses testes, o gargalo dominante do sistema passa a ser a espera pela resposta do hardware periférico, o que nivela os tempos absolutos de retorno, diminuindo o impacto do algoritmo de escalonamento adotado.
 
 \section{Conclusão}
 Este projeto teve como objetivo principal analisar os diferentes comportamentos de algoritmos clássicos de escalonamento e compará-los 
 com o algoritmo padrão do MINIX. Através da coleta e análise dos tempos médios de execução e do desvio-padrão para processos CPU-bound e IO-bound,
-em diferentes quantidades de processos, foi possível completar nosso objetivo de analisar como as características de cada método afetam no desempenho da CPU.
+em diferentes quantidades de processos, foi possível analisar como as características de cada método afetam no desempenho da CPU.
 
 O algoritmo padrão do MINIX 3, por exemplo, mesmo possuindo tempos médios de execução maiores que de outros métodos em certas situações, 
 em algumas execuções ele foi capaz de atingir tempos médios muito menores que seus pares, demonstrando a capacidade do algoritmo padrão do SO. Para o FCFS, foi possível obter resultados satisfatórios, porém, em alguns experimentos, foi possível verificar um alto desvio-padrão, indicando que o algoritmo é bem instável quando comparado ao resto. O Round-Robin com quantum variável foi o pior desempenho deste experimento, principalmente em casos com muitos processos, já que, por conta da grande divisão do quantum, há uma quantidade excessiva de trocas de contexto. Por fim, o múltiplas filas com quantum exponencial teve resultados mistos, sendo capaz de desempenhar bem em processos CPU-bound, mas em casos de processos IO-bound, possuiu as piores performances.
