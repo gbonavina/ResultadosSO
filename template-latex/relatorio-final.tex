@@ -34,7 +34,7 @@ This project presents a practical application of Operating Systems concepts thro
 Este projeto apresenta uma aplicação prática dos conceitos de Sistemas Operacionais por meio da exploração e modificação da arquitetura de microkernel do MINIX 3.4.0rc6. O trabalho descreve desde o processo de configuração do ambiente até a alteração direta do código-fonte para a implementação de três algoritmos de escalonamento: \textit{First-Come, First-Served} (FCFS), \textit{Round-Robin} (RR) e Múltiplas Filas com \textit{Quantum} Exponencial (MF). Comparados ao escalonador padrão sob cargas \textit{CPU-bound} e \textit{I/O-bound}, os resultados demonstram como o \textit{overhead} de troca de contexto e os gargalos de hardware afetam diretamente a eficiência de cada algoritmo.
 \end{resumo}
 
-O código-fonte completo deste projeto pode ser encontrado no repositório do Github: \url{https://github.com/brenonak/minix}. O vídeo das modificações em funcionamento pode ser visto em: \url{https://www.youtube.com/watch?v=V0kZwZAHqZE}.
+O código-fonte completo deste projeto pode ser encontrado no repositório do Github: \url{https://github.com/brenonak/minix}. O vídeo das modificações em funcionamento pode ser visto em: \\ \url{https://www.youtube.com/watch?v=V0kZwZAHqZE}.
 
 \section{Introdução}
 
@@ -166,7 +166,7 @@ Devido à arquitetura de microkernel do MINIX 3, o escalonamento ocorre tanto no
 
 Por outro lado, a política de escalonamento é implementada no espaço de usuário no diretório \texttt{/minix/servers/sched/}, com destaque para o arquivo \texttt{schedule.c}, onde o servidor de escalonamento \texttt{sched} gerencia o tempo de execução dos processos. Internamente, cada fila utiliza o algoritmo Round-Robin, no qual cada processo recebe uma fatia limitada de tempo de CPU (\textit{quantum}). O servidor \texttt{sched} reduz a prioridade de processos pesados (\textit{CPU-bound}) que esgotam seu \textit{quantum} e promove processos interativos (\textit{I/O-bound}) por meio do mecanismo de \textit{aging}, implementado na função \texttt{balance\_queues()}, garantindo maior responsividade e evitando inanição.
 \vspace{-10pt}
-\subsubsection{Round-Robin (RR)}
+\subsubsection{Round-Robin}
 \vspace{-10pt}
 O algoritmo de escalonamento por chaveamento circular (ou \textit{Round-Robin}) é um dos métodos mais simples e tradicionais devido à sua fácil implementação. Seu funcionamento baseia-se na definição de uma fatia de tempo de CPU (\textit{quantum}). O processo em execução retém a CPU por esse tempo limite; ao esgotá-lo, sofre preempção e retorna ao final da fila, cedendo espaço para o próximo processo \cite[p. 109--110]{tanenbaum}.
 
@@ -263,23 +263,23 @@ Concluimos, portanto, que o algoritmo padrão do MINIX ainda se mostra como uma 
 \textbf{Integrante} & \textbf{Atividades} \\ \hline
 
 Breno C. R. Nakamura & Etapa \#2: FCFS e primeiros testes; \newline 
-Etapa \#3: Seções: Resumo, 1, 6.1, 6.4, 7; Revisão Geral do Documento. \\ \hline
+Etapa \#3: Seções: Resumo, 1, 3.2.1, 3.2.4, 3.3; Revisão Geral do Documento. \\ \hline
 
 Estevan T. Santos & Execução dos Testes; Plotagem dos Gráficos; Elaboração do Vídeo para Entrega. \\ \hline
 
 Gabriel L. Bonavina & 
 Etapa \#2: Round-Robin e primeiros testes; \newline 
-Etapa \#3: Seções: 2, 3, 4, 5, 6.2 e 7. \\ \hline
+Etapa \#3: Seções: 2, 3.1, 3.2.2 e 3.3. \\ \hline
 
 Jonas L. Durão & 
 Etapa \#2: Round-Robin e primeiros testes; \newline 
-Etapa \#3: Seções: 2, 3, 4, 6.2 e 7. \\ \hline
+Etapa \#3: Seções: 2, 3.2.2 e 3.3. \\ \hline
 
 Natália V. A. do Val & Etapa \#2: FCFS e primeiros testes; \newline 
-Etapa \#3: Seções: 6.1, 6.4, 7; Revisão Geral do Documento. \\ \hline
+Etapa \#3: Seções: 3.2.1, 3.2.4, 3.3; Revisão Geral do Documento. \\ \hline
 
 Vinícius A. L. Andrade & Etapa \#2: Múltiplas Filas com Quantum Exponencial e primeiros testes; \newline 
-Etapa \#3: Seções: 6.3, 7 e 8; Revisão Geral do Documento. \\ \hline
+Etapa \#3: Seções: 3.2.3, 3.3 e 4; Revisão Geral do Documento. \\ \hline
 
 \end{tabular}
 \end{table}
