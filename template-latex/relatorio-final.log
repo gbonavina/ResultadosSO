@@ -1,0 +1,429 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.6.4)  6 JUN 2026 09:31
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/pierrot/Documents/SO/ResultadosSO/template-latex/relatorio-final.tex
+(/home/pierrot/Documents/SO/ResultadosSO/template-latex/relatorio-final.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count187
+\c@section=\count188
+\c@subsection=\count189
+\c@subsubsection=\count190
+\c@paragraph=\count191
+\c@subparagraph=\count192
+\c@figure=\count193
+\c@table=\count194
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+) (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+) (./sbc-template.sty
+Package: sbc-template 2001/06/09
+ (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+) (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count195
+\Gm@cntv=\count196
+\c@Gm@tempcnt=\count197
+\Gm@bindingoffset=\dimen141
+\Gm@wd@mp=\dimen142
+\Gm@odd@mp=\dimen143
+\Gm@even@mp=\dimen144
+\Gm@layoutwidth=\dimen145
+\Gm@layoutheight=\dimen146
+\Gm@layouthoffset=\dimen147
+\Gm@layoutvoffset=\dimen148
+\Gm@dimlist=\toks18
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen149
+\captionmargin=\dimen150
+\caption@leftmargin=\dimen151
+\caption@rightmargin=\dimen152
+\caption@width=\dimen153
+\caption@indent=\dimen154
+\caption@parindent=\dimen155
+\caption@hangindent=\dimen156
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count198
+\c@continuedfloat=\count199
+) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
+\c@instn=\count266
+ (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2023/10/27 v2.16 Sectioning titles
+\ttl@box=\box51
+\beforetitleunit=\skip50
+\aftertitleunit=\skip51
+\ttl@plus=\dimen157
+\ttl@minus=\dimen158
+\ttl@toksa=\toks19
+\titlewidth=\dimen159
+\titlewidthlast=\dimen160
+\titlewidthfirst=\dimen161
+) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count267
+)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen162
+\Gin@req@width=\dimen163
+) (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks20
+\inpenc@posthook=\toks21
+) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2024/01/07 v24.1 The Babel package
+\babel@savecnt=\count268
+\U@D=\dimen164
+\l@unhyphenated=\language89
+ (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count269
+ (/usr/share/texlive/texmf-dist/tex/generic/babel-portuges/brazil.ldf
+Language: portuges 2021/07/09 v1.2t Portuguese support from the babel system
+Package babel Info: Hyphen rules for 'brazil' set to \l@portuguese
+(babel)             (\language22). Reported on input line 111.
+Package babel Info: Making " an active character on input line 143.
+)) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count270
+\float@exts=\toks22
+\float@box=\box52
+\@float@everytoks=\toks23
+\@floatcapt=\box53
+)
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 25.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count271
+\l__pdf_internal_box=\box54
+) (./relatorio-final.aux)
+\openout1 = `relatorio-final.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count272
+\scratchdimen=\dimen165
+\scratchbox=\box55
+\nofMPsegments=\count273
+\nofMParguments=\count274
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count275
+\MPscratchDim=\dimen166
+\MPnumerator=\count276
+\makeMPintoPDFobject=\count277
+\everyMPtoPDFconversion=\toks25
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
+* v-part:(T,H,B)=(99.58464pt, 674.33032pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79135pt
+* \textheight=674.33032pt
+* \oddsidemargin=13.08827pt
+* \evensidemargin=13.08827pt
+* \topmargin=-9.68535pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 27.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 37.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+<imgs/install1.jpeg, id=12, 782.925pt x 549.05125pt>
+File: imgs/install1.jpeg Graphic file (type jpg)
+<use imgs/install1.jpeg>
+Package pdftex.def Info: imgs/install1.jpeg  used on input line 58.
+(pdftex.def)             Requested size: 204.85802pt x 143.66313pt.
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 59.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
+File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
+)
+<imgs/install2.jpeg, id=13, 782.925pt x 549.05125pt>
+File: imgs/install2.jpeg Graphic file (type jpg)
+<use imgs/install2.jpeg>
+Package pdftex.def Info: imgs/install2.jpeg  used on input line 64.
+(pdftex.def)             Requested size: 204.85802pt x 143.66313pt.
+<imgs/banner1.jpeg, id=14, 750.805pt x 513.92pt>
+File: imgs/banner1.jpeg Graphic file (type jpg)
+<use imgs/banner1.jpeg>
+Package pdftex.def Info: imgs/banner1.jpeg  used on input line 105.
+(pdftex.def)             Requested size: 204.85802pt x 140.21881pt.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 106.
+<imgs/banner3.jpeg, id=15, 750.805pt x 513.92pt>
+File: imgs/banner3.jpeg Graphic file (type jpg)
+<use imgs/banner3.jpeg>
+Package pdftex.def Info: imgs/banner3.jpeg  used on input line 111.
+(pdftex.def)             Requested size: 204.85802pt x 140.21881pt.
+ [2 <./imgs/install1.jpeg> <./imgs/install2.jpeg>]
+<imgs/banner2.jpeg, id=20, 750.805pt x 513.92pt>
+File: imgs/banner2.jpeg Graphic file (type jpg)
+<use imgs/banner2.jpeg>
+Package pdftex.def Info: imgs/banner2.jpeg  used on input line 126.
+(pdftex.def)             Requested size: 213.39568pt x 146.06879pt.
+
+Underfull \hbox (badness 1735) in paragraph at lines 136--137
+[]\OT1/ptm/m/n/12 Inicialmente, adicionou-se o campo \OT1/pcr/m/n/12 execpath []\OT1/ptm/m/n/12 a es-tru-tura com-par-ti-lhada
+ []
+
+<imgs/execls.jpeg, id=21, 750.805pt x 513.92pt>
+File: imgs/execls.jpeg Graphic file (type jpg)
+<use imgs/execls.jpeg>
+Package pdftex.def Info: imgs/execls.jpeg  used on input line 144.
+(pdftex.def)             Requested size: 213.39568pt x 146.06879pt.
+[3 <./imgs/banner1.jpeg> <./imgs/banner3.jpeg> <./imgs/banner2.jpeg>] [4 <./imgs/execls.jpeg>]
+Underfull \hbox (badness 1028) in paragraph at lines 170--171
+\OT1/ptm/m/n/12 baixo n[]^^Pvel do n[]ucleo (\OT1/pcr/m/n/12 minix/kernel/proc.c\OT1/ptm/m/n/12 ), a es-trat[]egia ado-tada foi uni-
+ []
+
+
+Underfull \hbox (badness 1442) in paragraph at lines 170--171
+\OT1/ptm/m/n/12 fi-car os pro-ces-sos de usu[]ario em uma []unica fila est[]atica. Modificou-se o ser-
+ []
+
+
+Underfull \hbox (badness 1424) in paragraph at lines 170--171
+\OT1/ptm/m/n/12 vi-dor de es-ca-lo-na-mento (\OT1/pcr/m/n/12 minix/servers/sched/schedule.c\OT1/ptm/m/n/12 ) e o ge-ren-ci-
+ []
+
+
+Underfull \hbox (badness 1259) in paragraph at lines 170--171
+\OT1/ptm/m/n/12 a-dor de pro-ces-sos (\OT1/pcr/m/n/12 minix/servers/pm/utility.c\OT1/ptm/m/n/12 ) para que fun[][]oes como
+ []
+
+
+Underfull \hbox (badness 1242) in paragraph at lines 174--175
+[]\OT1/ptm/m/n/12 O di-fe-ren-cial desta implementa[][]ao []e a ado[][]ao de um \OT1/ptm/m/it/12 quan-tum \OT1/ptm/m/n/12 din[]amico,
+ []
+
+
+Underfull \hbox (badness 1540) in paragraph at lines 174--175
+\OT1/pcr/m/n/12 sys[]getinfo(GET[]PROC) \OT1/ptm/m/n/12 em con-junto com a ma-cro \OT1/pcr/m/n/12 proc[]is[]runnable()
+ []
+
+
+Underfull \hbox (badness 6316) in paragraph at lines 174--175
+\OT1/ptm/m/n/12 ([[]]). Para su-por-tar essa l[]ogica, in-clu[]^^Pram-se as bi-bli-o-te-cas
+ []
+
+
+Underfull \hbox (badness 3690) in paragraph at lines 174--175
+\OT1/pcr/m/n/12 <minix/timers.h> \OT1/ptm/m/n/12 e \OT1/pcr/m/n/12 "kernel/proc.h" \OT1/ptm/m/n/12 e criaram-se as ro-ti-nas au-xi-li-a-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
+\OT1/ptm/m/n/12 res \OT1/pcr/m/n/12 apply[]variable[]quantum() \OT1/ptm/m/n/12 e \OT1/pcr/m/n/12 reschedule[]all[]user[]quanta()\OT1/ptm/m/n/12 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
+\OT1/ptm/m/n/12 Desse modo, o tempo de CPU []e re-cal-cu-lado e apli-cado di-na-mi-ca-mente
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
+\OT1/ptm/m/n/12 (por meio de \OT1/pcr/m/n/12 sys[]schedule()\OT1/ptm/m/n/12 ) sem-pre que um pro-cesso []e ini-ci-ado
+ []
+
+
+Underfull \hbox (badness 1194) in paragraph at lines 174--175
+\OT1/ptm/m/n/12 (\OT1/pcr/m/n/12 do[]start[]scheduling()\OT1/ptm/m/n/12 ), en-cer-rado (\OT1/pcr/m/n/12 do[]stop[]scheduling()\OT1/ptm/m/n/12 ) ou quando
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
+[]\OT1/ptm/m/n/12 Com o ob-je-tivo de de-sen-vol-ver essa l[]ogica, a fun[][]ao
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 181--182
+\OT1/pcr/m/n/12 user[]quantum[]for[]priority \OT1/ptm/m/n/12 foi cri-ada para cal-cu-lar, em pot[]encias de dois,
+ []
+
+
+Underfull \hbox (badness 2495) in paragraph at lines 183--184
+[]\OT1/ptm/m/n/12 Para as-se-gu-rar o com-por-ta-mento de-fi-nido no pro-jeto, o re-ba-lan-ce-a-mento
+ []
+
+
+Underfull \hbox (badness 2050) in paragraph at lines 183--184
+\OT1/ptm/m/n/12 das fi-las exe-cu-tado pe-ri-o-di-ca-mente em de-ter-mi-na-dos ci-clos de \OT1/ptm/m/it/12 clock \OT1/ptm/m/n/12 foi de-sa-ti-
+ []
+
+
+Underfull \hbox (badness 1400) in paragraph at lines 183--184
+\OT1/ptm/m/n/12 vado. Para isso, em \OT1/pcr/m/n/12 init[]scheduling() \OT1/ptm/m/n/12 os tre-chos que fa-zem a cha-mada
+ []
+
+
+Underfull \hbox (badness 1442) in paragraph at lines 183--184
+\OT1/ptm/m/n/12 de \OT1/pcr/m/n/12 sys[]setalarm(balance[]timeout) \OT1/ptm/m/n/12 fo-ram co-men-ta-dos, de modo que em
+ []
+
+
+Underfull \hbox (badness 8056) in paragraph at lines 189--190
+[]\OT1/ptm/m/n/12 No espa[]o de n[]ucleo, as modifica[][]oes fo-ram re-a-li-za-das no ar-quivo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
+\OT1/pcr/m/n/12 /minix/kernel/proc.c\OT1/ptm/m/n/12 , onde a preemp[][]ao foi de-sa-bi-li-tada na fun[][]ao
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+[]\OT1/ptm/m/n/12 No espa[]o de usu[]ario, as altera[][]oes fo-ram re-a-li-za-das no ar-quivo
+ []
+
+<imgs/results_cpu_bound.jpeg, id=39, 1355.0625pt x 752.8125pt>
+File: imgs/results_cpu_bound.jpeg Graphic file (type jpg)
+<use imgs/results_cpu_bound.jpeg>
+Package pdftex.def Info: imgs/results_cpu_bound.jpeg  used on input line 205.
+(pdftex.def)             Requested size: 298.75264pt x 165.97536pt.
+[7 <./imgs/results_cpu_bound.jpeg>]
+<imgs/results_io_bound.jpeg, id=44, 1355.0625pt x 752.8125pt>
+File: imgs/results_io_bound.jpeg Graphic file (type jpg)
+<use imgs/results_io_bound.jpeg>
+Package pdftex.def Info: imgs/results_io_bound.jpeg  used on input line 223.
+(pdftex.def)             Requested size: 298.75264pt x 165.97536pt.
+ [8 <./imgs/results_io_bound.jpeg>] [9]
+Underfull \hbox (badness 3138) in paragraph at lines 260--260
+[]\OT1/ptm/m/n/12 Breno C. R. Na-ka-
+ []
+
+
+Underfull \hbox (badness 3168) in paragraph at lines 276--276
+[]\OT1/ptm/m/n/12 Vin[]^^Pcius A. L. An-
+ []
+
+
+Overfull \hbox (2.65912pt too wide) in paragraph at lines 256--280
+ [][] 
+ []
+
+(./relatorio-final.bbl) [10] (./relatorio-final.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 5836 strings out of 474222
+ 97225 string characters out of 5748734
+ 1939975 words of memory out of 5000000
+ 28033 multiletter control sequences out of 15000+600000
+ 577744 words of font info for 71 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 72i,14n,79p,1023b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on relatorio-final.pdf (10 pages, 958992 bytes).
+PDF statistics:
+ 106 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+
