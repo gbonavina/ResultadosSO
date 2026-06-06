@@ -182,7 +182,7 @@ O segundo algoritmo implementado altera a política de múltiplas filas do MINIX
 
 Para implementar as alterações propostas, as modificações foram feitas no arquivo \texttt{minix/servers/sched/schedule.c}. Vale ressaltar que as novas regras de escalonamento aplicam-se exclusivamente aos processos de usuário, ou seja, aqueles que estão em filas acima de \texttt{USER\_Q 7}. Para a implementação, definiu-se uma nova fatia de tempo inicial correspondente a $10\%$ do valor padrão que o MINIX define para processos de usuário. Isso foi feito a partir da modificação do valor de \texttt{DEFAULT\_USER\_TIME\_SLICE} para o valor de $20$ no lugar de $200$. Isso permitiu verificar nos resultados a influência do crescimento progressivo do tempo de CPU para processos longos.
 
-Com o objetivo de desenvolver essa lógica, a função \texttt{user\_quantum\_for\_priority} foi criada para calcular, em potências de dois, o \textit{quantum} correspondente a cada nível de fila. O controle do tempo de CPU atribuído a cada processo, por sua vez, é atualizado pela função \texttt{update\_user\_quantum}. A chamada dessa função ocorre em situações distintas: em \texttt{do\_start\_scheduling()}, para inicializar o processo com o \textit{quantum} base; em \texttt{do\_noquantum()}, para atualizar o \textit{quantum} no momento da preempção por esgotamento do tempo de CPU do processo; no caso \texttt{SCHEDULING\_INHERIT}, para assegurar que o filho, criado na mesma fila de prioridade que o pai, tenha seu \textit{quantum} corretamente definido; e, por fim, em \texttt{do\_nice()}, para que a mudança de prioridade ajuste a fatia de tempo adequada.
+Com o objetivo de desenvolver essa lógica, a função \texttt{user\_quantum\_for\_priority()} foi criada para calcular, em potências de dois, o \textit{quantum} correspondente a cada nível de fila. O controle do tempo de CPU atribuído a cada processo, por sua vez, é atualizado pela função \texttt{update\_user\_quantum()}. A chamada dessa função ocorre em situações distintas: em \texttt{do\_start\_scheduling()}, para inicializar o processo com o \textit{quantum} base; em \texttt{do\_noquantum()}, para atualizar o \textit{quantum} no momento da preempção por esgotamento do tempo de CPU do processo; no caso \texttt{SCHEDULING\_INHERIT}, para assegurar que o filho, criado na mesma fila de prioridade que o pai, tenha seu \textit{quantum} corretamente definido; e, por fim, em \texttt{do\_nice()}, para que a mudança de prioridade ajuste a fatia de tempo adequada.
 
 Para assegurar o comportamento definido no projeto, o rebalanceamento das filas executado periodicamente em determinados ciclos de \textit{clock} foi desativado. Para isso, em \texttt{init\_scheduling()} os trechos que fazem a chamada de \texttt{sys\_setalarm(balance\_timeout)} foram comentados, de modo que em \texttt{minix/servers/sched/main.c} não haja a invocação de \texttt{balance\_queues()}.
 \vspace{-10pt}
@@ -207,7 +207,7 @@ A configuração do computador utilizado foi um processador 12th Gen Intel(R) Co
 \begin{figure}[H]
   \centering
   % O underline não foi escapado aqui para o compilador conseguir encontrar o arquivo na pasta
-  \includegraphics[width=0.7\linewidth]{imgs/results_cpu_bound.jpeg}
+  \includegraphics[width=0.635\linewidth]{imgs/results_cpu_bound.jpeg}
   \caption{Resultados obtidos para processos \textit{CPU-bound}.}
   \label{fig:results_cpu_bound}
 \end{figure}  
