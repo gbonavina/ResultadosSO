@@ -34,7 +34,7 @@ This project presents a practical application of Operating Systems concepts thro
 Este projeto apresenta uma aplicação prática dos conceitos de Sistemas Operacionais por meio da exploração e modificação da arquitetura de microkernel do MINIX 3.4.0rc6. O trabalho descreve desde o processo de configuração do ambiente até a alteração direta do código-fonte para a implementação de três algoritmos de escalonamento: \textit{First-Come, First-Served} (FCFS), \textit{Round-Robin} (RR) e Múltiplas Filas com \textit{Quantum} Exponencial (MF). Comparados ao escalonador padrão sob cargas \textit{CPU-bound} e \textit{I/O-bound}, os resultados demonstram como o \textit{overhead} de troca de contexto e os gargalos de hardware afetam diretamente a eficiência de cada algoritmo.
 \end{resumo}
 
-O código-fonte completo deste projeto pode ser encontrado no repositório do Github: \url{https://github.com/brenonak/minix}
+O código-fonte completo deste projeto pode ser encontrado no repositório do Github: \url{https://github.com/brenonak/minix}. O vídeo das modificações em funcionamento pode ser visto em: \url{https://www.youtube.com/watch?v=V0kZwZAHqZE}.
 
 \section{Introdução}
 
@@ -42,7 +42,8 @@ O MINIX 3 é um sistema operacional de código aberto criado por Andrew S. Tanen
 
 Este projeto utiliza a versão MINIX 3.4.0rc6 com o objetivo de aplicar na prática os conceitos teóricos da disciplina de Sistemas Operacionais. O trabalho explora o funcionamento interno do sistema por meio de sua instalação em ambiente virtualizado, alteração de chamadas no kernel e, principalmente, através da implementação e análise comparativa de desempenho de diferentes algoritmos de escalonamento de processos sob variadas cargas de trabalho.
 
-\section{Instalação}
+\section{Etapa \#1}
+\subsection{Instalação}
 
 A primeira etapa deste projeto consistiu na instalação e configuração inicial do 
 MINIX na máquina virtual. Para isso, foi necessário seguir o manual de instruções
@@ -87,7 +88,7 @@ Por fim, faz-se necessário ressaltar as configurações de hardware da máquina
 utilizamos uma máquina virtual com 1 \textit{core} de processador, 1GB de memória RAM e 4GB de HD dinâmicamente alocado.
 \raggedbottom
 
-\section{Mudança nos Banners}
+\subsection{Mudança nos Banners}
 \raggedbottom
 
 Para a mudança no banner durante \textit{boot} e \textit{poweroff}, foi necessário navegar no diretório \texttt{minix/minix/kernel/main.c}. 
@@ -129,7 +130,7 @@ pode ser encontrado na Figura \ref{fig:banner2}.
 \end{figure}
 \vspace{-10pt}
 
-\section{Mudança \texttt{exec.c}}
+\subsection{Mudança \texttt{exec.c}}
 
 Para registrar a execução de processos exibindo o comando e seu caminho absoluto, a implementação foi dividida entre o \textit{Virtual File System} (VFS) e o \textit{Process Manager} (PM), respeitando a modularidade da arquitetura do MINIX \cite{minix3wiki}. 
 
@@ -147,24 +148,26 @@ para exibir a mensagem \texttt{Executando: <caminho/comando>}. O resultado dessa
 \end{figure}
 
 \vspace{-10pt}
-Por fim, é válido destacar que todas os caminhos de arquivos modificados durante esta fase do projeto foram encontrados por meio da documentação oficial do MINIX \cite{minix3wiki}.
+Por fim, é válido destacar que todos os caminhos de arquivos modificados durante esta fase do projeto foram encontrados por meio da documentação oficial do MINIX \cite{minix3wiki}.
 
-\section{Descrição do Exercício Proposto}
+\section{Etapa \#2}
+\subsection{Descrição do Exercício Proposto}
 Este projeto avalia o desempenho de diferentes algoritmos de escalonamento no MINIX 3.4.0rc6. Além do algoritmo padrão, o código-fonte do sistema foi modificado para implementar três escalonadores diferentes: \textit{Round-Robin}, Múltiplas Filas com \textit{Quantum} Exponencial e \textit{First-Come, First-Served}. A eficiência de cada escalonador foi testada sob perfis \textit{CPU-bound}, com cargas de 1 milhão de operações por processo, e \textit{I/O-bound}, com 10 mil operações. A avaliação desenvolvida utilizou o programa \texttt{teste\_processos.c}, submetendo o sistema a escalas de 10, 50, 100 e 200 processos simultâneos.
 
-\section{Descrição dos Algoritmos de Escalonamento}
+\subsection{Descrição dos Algoritmos de Escalonamento}
 
 Para fundamentar as políticas implementadas neste projeto, é essencial estabelecer a base teórica do escalonamento de processos. Em sistemas multiprogramados, o escalonador é o componente do sistema operacional responsável por decidir qual tarefa terá acesso à CPU. Os algoritmos que guiam essa escolha dividem-se em duas categorias: os não preemptivos, nos quais a tarefa executa ininterruptamente até ser bloqueada ou liberar o processador de forma voluntária; e os preemptivos, que forçam a interrupção do processo após um intervalo de tempo máximo predefinido, conhecido como \textit{quantum} \cite[p. 103--106]{tanenbaum}. Os algoritmos abordados a seguir englobam ambas as categorias: o modelo padrão do MINIX, o \textit{Round-Robin} e as Múltiplas Filas com \textit{Quantum} Exponencial operam de forma preemptiva, enquanto o FCFS adota o modelo não preemptivo.
-
-\subsection{Algoritmo Padrão do MINIX}
-
-O algoritmo de escalonamento padrão do MINIX 3 utiliza um escalonador preemptivo baseado em múltiplas filas de prioridade com ajuste dinâmico. O sistema gerencia 16 filas (0 a 15), nas quais o nível 0 possui a maior prioridade e o nível 15, a menor. O escalonador sempre seleciona o processo localizado no topo da fila de maior prioridade que não esteja vazia. As filas superiores, de 0 a 6, são destinadas a processos críticos do núcleo e a servidores essenciais do sistema. Já os processos de usuário são alocados entre as filas 7 (\texttt{USER\_Q}) e 14 (\texttt{MIN\_USER\_Q}). A fila 15 (\texttt{IDLE\_Q}), de menor prioridade, é reservada ao processo ocioso do sistema, executado apenas quando não há nenhuma outra instrução pendente no processador.
+\vspace{-10pt}
+\subsubsection{Algoritmo Padrão do MINIX}
+\vspace{-10pt}
+O escalonador padrão do MINIX 3 é preemptivo e baseado em múltiplas filas de prioridade com ajuste dinâmico. O sistema gerencia 16 filas (0 a 15), nas quais o nível 0 possui a maior prioridade e o nível 15, a menor. O escalonador sempre seleciona o processo localizado no topo da fila de maior prioridade que não esteja vazia. As filas superiores, de 0 a 6, são destinadas a processos críticos do núcleo e a servidores essenciais do sistema. Já os processos de usuário são alocados entre as filas 7 (\texttt{USER\_Q}) e 14 (\texttt{MIN\_USER\_Q}). A fila 15 (\texttt{IDLE\_Q}), de menor prioridade, é reservada ao processo ocioso do sistema, executado apenas quando não há nenhuma outra instrução pendente no processador.
 
 Devido à arquitetura de microkernel do MINIX 3, o escalonamento ocorre tanto no espaço de núcleo quanto no espaço de usuário. No espaço de núcleo, implementado principalmente em \texttt{/minix/kernel/proc.c}, encontram-se os mecanismos de baixo nível, fornecendo as operações \texttt{enqueue()} e \texttt{dequeue()}, responsáveis pela manipulação das estruturas de dados, além da função \texttt{pick\_proc()}, responsável por selecionar o próximo processo a receber a CPU com base na prioridade estrita.
 
 Por outro lado, a política de escalonamento é implementada no espaço de usuário no diretório \texttt{/minix/servers/sched/}, com destaque para o arquivo \texttt{schedule.c}, onde o servidor de escalonamento \texttt{sched} gerencia o tempo de execução dos processos. Internamente, cada fila utiliza o algoritmo Round-Robin, no qual cada processo recebe uma fatia limitada de tempo de CPU (\textit{quantum}). O servidor \texttt{sched} reduz a prioridade de processos pesados (\textit{CPU-bound}) que esgotam seu \textit{quantum} e promove processos interativos (\textit{I/O-bound}) por meio do mecanismo de \textit{aging}, implementado na função \texttt{balance\_queues()}, garantindo maior responsividade e evitando inanição.
-
-\subsection{Round-Robin (RR)}
+\vspace{-10pt}
+\subsubsection{Round-Robin (RR)}
+\vspace{-10pt}
 O algoritmo de escalonamento por chaveamento circular (ou \textit{Round-Robin}) é um dos métodos mais simples e tradicionais devido à sua fácil implementação. Seu funcionamento baseia-se na definição de uma fatia de tempo de CPU (\textit{quantum}). O processo em execução retém a CPU por esse tempo limite; ao esgotá-lo, sofre preempção e retorna ao final da fila, cedendo espaço para o próximo processo \cite[p. 109--110]{tanenbaum}.
 
 Para implementar essa política no MINIX 3 sem alterar os mecanismos de baixo nível do núcleo (\texttt{minix/kernel/proc.c}), a estratégia adotada foi unificar os processos de usuário em uma única fila estática. Modificou-se o servidor de escalonamento (\texttt{minix/servers/sched/schedule.c}) e o gerenciador de processos (\texttt{minix/servers/pm/utility.c}) para que funções como \texttt{do\_start\_scheduling()}, \texttt{do\_nice()} e \texttt{nice\_to\_priority()} alocassem todos os processos de usuário exclusivamente na fila \texttt{USER\_Q} (prioridade 7). Processos de sistema, contudo, mantiveram suas prioridades originais inalteradas.
@@ -172,33 +175,35 @@ Para implementar essa política no MINIX 3 sem alterar os mecanismos de baixo n�
 Com o confinamento em uma fila única, a política dinâmica de múltiplas filas (MLFQ) foi completamente desativada. Removeu-se o rebaixamento de prioridade em \texttt{do\_noquantum()} (eliminando \texttt{rmp->priority += 1}) e o mecanismo de envelhecimento (\textit{aging}), esvaziando as funções \texttt{balance\_queues()} e \texttt{init\_scheduling()}, além de remover suas chamadas de atualização de \textit{clock} em \texttt{main.c}. Assim, ao expirar o \textit{quantum} ou ao desbloquear de uma operação de E/S, a reinserção do processo na cauda da fila \texttt{USER\_Q} via \texttt{schedule\_process\_local()} reproduz, de forma natural, o comportamento circular puro do \textit{Round-Robin}.
 
 O diferencial desta implementação é a adoção de um \textit{quantum} dinâmico, definido pela proporção $\frac{1000}{n}$ ms, onde $n$ representa a quantidade de processos de usuário prontos. A contagem $n$ é obtida iterando sobre os processos e utilizando \texttt{sys\_getinfo(GET\_PROC)} em conjunto com a macro \texttt{proc\_is\_runnable()} (\cite{minix3wiki}). Para suportar essa lógica, incluíram-se as bibliotecas \texttt{<minix/timers.h>} e \texttt{"kernel/proc.h"} e criaram-se as rotinas auxiliares \texttt{apply\_variable\_quantum()} e \texttt{reschedule\_all\_user\_quanta()}. Desse modo, o tempo de CPU é recalculado e aplicado dinamicamente (por meio de \texttt{sys\_schedule()}) sempre que um processo é iniciado (\texttt{do\_start\_scheduling()}), encerrado (\texttt{do\_stop\_scheduling()}) ou quando esgota sua fatia de tempo (\texttt{do\_noquantum()}).
-
-\subsection{Múltiplas Filas com Quantum Exponencial}
+\vspace{-10pt}
+\subsubsection{Múltiplas Filas com Quantum Exponencial}
+\vspace{-10pt}
 O segundo algoritmo implementado altera a política de múltiplas filas do MINIX 3, substituindo o \textit{quantum} fixo por fatias de tempo crescentes. A modificação baseia-se no sistema CTSS, que operava no IBM 7094 (\cite[p. 111]{tanenbaum}), partindo do pressuposto de que conceder fatias de CPU progressivamente maiores reduz o \textit{overhead} causado pelo excesso de trocas de contexto. Para isso, o projeto define que, ao esgotar seu tempo de CPU alocado, o processo é rebaixado à fila inferior, recebendo um novo \textit{quantum} que cresce em potências de dois. Na última fila, os processos remanescentes são escalonados segundo a política \textit{Round-Robin} com o \textit{quantum} correspondente àquele nível.
 
-Para implementar as alterações propostas, as modificações foram feitas no arquivo \texttt{minix/servers/sched/schedule.c}. Vale ressaltar que as novas regras de escalonamento aplicam-se exclusivamente aos processos de usuário, ou seja, aqueles que estão em filas acima de \texttt{USER\_Q 7}. Para uma implementação coerente, definiu-se uma nova fatia de tempo inicial correspondente a $10\%$ do valor padrão que o MINIX 3.4.0rc6 define para processos de usuário. Isso foi feito a partir da modificação do valor de \texttt{DEFAULT\_USER\_TIME\_SLICE} para o valor de $20$ no lugar de $200$. Isso permitiu verificar nos resultados a influência do crescimento progressivo do tempo de CPU para processos longos.
+Para implementar as alterações propostas, as modificações foram feitas no arquivo \texttt{minix/servers/sched/schedule.c}. Vale ressaltar que as novas regras de escalonamento aplicam-se exclusivamente aos processos de usuário, ou seja, aqueles que estão em filas acima de \texttt{USER\_Q 7}. Para a implementação, definiu-se uma nova fatia de tempo inicial correspondente a $10\%$ do valor padrão que o MINIX define para processos de usuário. Isso foi feito a partir da modificação do valor de \texttt{DEFAULT\_USER\_TIME\_SLICE} para o valor de $20$ no lugar de $200$. Isso permitiu verificar nos resultados a influência do crescimento progressivo do tempo de CPU para processos longos.
 
 Com o objetivo de desenvolver essa lógica, a função \texttt{user\_quantum\_for\_priority} foi criada para calcular, em potências de dois, o \textit{quantum} correspondente a cada nível de fila. O controle do tempo de CPU atribuído a cada processo, por sua vez, é atualizado pela função \texttt{update\_user\_quantum}. A chamada dessa função ocorre em situações distintas: em \texttt{do\_start\_scheduling()}, para inicializar o processo com o \textit{quantum} base; em \texttt{do\_noquantum()}, para atualizar o \textit{quantum} no momento da preempção por esgotamento do tempo de CPU do processo; no caso \texttt{SCHEDULING\_INHERIT}, para assegurar que o filho, criado na mesma fila de prioridade que o pai, tenha seu \textit{quantum} corretamente definido; e, por fim, em \texttt{do\_nice()}, para que a mudança de prioridade ajuste a fatia de tempo adequada.
 
 Para assegurar o comportamento definido no projeto, o rebalanceamento das filas executado periodicamente em determinados ciclos de \textit{clock} foi desativado. Para isso, em \texttt{init\_scheduling()} os trechos que fazem a chamada de \texttt{sys\_setalarm(balance\_timeout)} foram comentados, de modo que em \texttt{minix/servers/sched/main.c} não haja a invocação de \texttt{balance\_queues()}.
-
-\subsection{\textit{First-Come, First-Served} (FCFS)}
-
+\vspace{-10pt}
+\subsubsection{\textit{First-Come, First-Served} (FCFS)}
+\vspace{-10pt}
 O algoritmo \textit{First-Come, First-Served} atende os processos estritamente na ordem de chegada, sem preempção por tempo. Sua implementação no MINIX 3 exigiu desativar a prioridade dinâmica de múltiplas filas e as interrupções temporais para as tarefas de usuário, garantindo que executem de forma exclusiva até sua finalização ou bloqueio por E/S.
 
 No espaço de núcleo, as modificações foram realizadas no arquivo \texttt{/minix/kernel/proc.c}, onde a preempção foi desabilitada na função \texttt{proc\_no\_time()}. A chamada \texttt{notify\_scheduler(p)}, que efetuava o \texttt{dequeue} do processo ao fim do tempo, foi substituída pela renovação contínua da sua fatia de tempo (\texttt{p->p\_cpu\_time\_left}). Essa abordagem mantém a CPU com o processo atual sem quebrar os cálculos estatísticos internos do microkernel com um \textit{quantum} infinito.
 
-No espaço de usuário, as alterações foram realizadas no arquivo \texttt{/minix/servers/sched/schedule.c}. A estabilidade do sistema foi assegurada mantendo as filas 0 a 6 inalteradas para os servidores críticos. O FCFS foi aplicado exclusivamente aos processos do usuário Na função \texttt{do\_start\_scheduling()}, todo processo com prioridade igual ou superior a 7 passou a ser alocado forçadamente em uma única fila (\texttt{USER\_Q}). Com todos os processos de usuário concentrados nessa fila e sem variação de prioridade, os mecanismos de rebaixamento implementados em \texttt{do\_noquantum()} e de promoção por \textit{aging} implementados em \texttt{balance\_queues()} foram completamente removidos. Por fim, para evitar interferências externas, a função \texttt{do\_nice()} foi modificada para retornar \texttt{OK} imediatamente, impedindo a alteração manual de prioridades pelos usuários.
+No espaço de usuário, as alterações foram realizadas no arquivo \texttt{/minix/servers/sched/schedule.c}. A estabilidade do sistema foi assegurada mantendo as filas 0 a 6 inalteradas para os servidores críticos. O FCFS foi aplicado exclusivamente aos processos do usuário Na função \texttt{do\_start\_scheduling()}, todo processo com prioridade igual ou superior a 7 passou a ser alocado em uma única fila (\texttt{USER\_Q}). Com todos os processos de usuário concentrados nessa fila e sem variação de prioridade, os mecanismos de rebaixamento implementados em \texttt{do\_noquantum()} e de promoção por \textit{aging} implementados em \texttt{balance\_queues()} foram removidos. Por fim, para evitar interferências externas, a função \texttt{do\_nice()} foi modificada para retornar \texttt{OK} imediatamente, impedindo a alteração manual de prioridades pelos usuários.
 
-\section{Resultados Obtidos e Discussão}
+\subsection{Resultados Obtidos e Discussão}
 Para garantir a robustez estatística de nossos resultados, realizaram-se 5 execuções para cada algoritmo, e calcularem-se a média e o desvio-padrão de cada um deles. Ao final
 das execuções, foi desenvolvido um gráfico de barras para cada classe de processos, no qual o eixo X representa o número de processos e o eixo Y representa o tempo de execução médio. Esses resultados são apresentados na Figura \ref{fig:results_cpu_bound} e na Figura \ref{fig:results_io_bound}. Neles são apresentados em azul o algoritmo padrão do MINIX, em amarelo o FCFS, em verde o \textit{Round-Robin} (RR) e em vermelho o Múltiplas Filas com \textit{Quantum} Exponencial (MF).
 
 Também é válido ressaltar que todos os testes de desempenho foram executados no mesmo computador, o qual foi mantido sem a execução de tarefas paralelas ou uso pessoal, de modo que os resultados obtidos fossem consistentes. 
 A configuração do computador utilizado foi um processador 12th Gen Intel(R) Core(TM) i5-12500H com 16GB de RAM, com o Windows 11 instalado. Por fim, a versão da Oracle VirtualBox é a 7.2.6.
-
-\subsection{Resultados para testes de processos \textit{CPU-bound}}
 \vspace{-10pt}
+\subsubsection{Resultados para testes de processos \textit{CPU-bound}}
+\vspace{-20pt}
+
 \begin{figure}[H]
   \centering
   % O underline não foi escapado aqui para o compilador conseguir encontrar o arquivo na pasta
@@ -215,9 +220,9 @@ As divergências entre as políticas ficam nítidas com o aumento da carga. Para
 Nesses cenários extremos de 200 processos, o FCFS e o algoritmo Padrão do MINIX mostram a melhor escalabilidade. O FCFS atingiu 10.0~ms, resultado teoricamente justificado por sua natureza não preemptiva, que elimina as trocas de contexto e dedica a CPU integralmente à execução útil. De outro modo, o RR sofre o maior impacto sob carga pesada, registrando a pior média (12.1~ms) e a maior variância, consequência direta de um \textit{quantum} particionado ao extremo ao dividir a CPU com muitos processos (ex: $\frac{1000}{200} = 5\,ms$), o que acentua a degradação pelas preempções.
 
 Por fim, um ponto válido a ser levantado é o comportamento do algoritmo padrão do MINIX no cenário extremo de 200 processos. Embora apresente a segunda melhor média (10.2~ms), seu desvio-padrão indica que otimizações internas do escalonador dinâmico permitiram picos na casa dos 9.0~ms em rodadas específicas. Contudo, ao considerar a sobreposição das margens de erro, conclui-se que há um empate técnico entre o Padrão do MINIX e o FCFS. A principal diferença está na estabilidade, pois o FCFS entrega maior previsibilidade devido à ausência das interrupções de prioridade.
-\subsection{Resultados para testes de processos \textit{IO-bound}}
-
 \vspace{-10pt}
+\subsubsection{Resultados para testes de processos \textit{IO-bound}}
+\vspace{-20pt}
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\linewidth]{imgs/results_io_bound.jpeg}
